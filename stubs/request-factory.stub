@@ -1,0 +1,15 @@
+<?php
+
+namespace DummyNamespace;
+
+use Worksome\RequestFactories\RequestFactory;
+
+class DummyClass extends RequestFactory
+{
+    public function definition(): array
+    {
+        return [
+          // 'email' => $this->faker->email,
+        ];
+    }
+}

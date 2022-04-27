@@ -1,10 +1,13 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Worksome\RequestFactories\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Worksome\RequestFactories\Contracts\Finder as FinderContract;
+use Worksome\RequestFactories\RequestFactoriesServiceProvider;
+use Worksome\RequestFactories\Support\Finder;
+use Worksome\RequestFactories\Tests\Doubles\TestFinder;
 
 class TestCase extends Orchestra
 {
@@ -12,25 +15,16 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $this->app->singleton(FinderContract::class, fn () => new TestFinder(new Finder()));
     }
 
-    protected function getPackageProviders($app)
+    /**
+     * @return array<int, class-string>
+     */
+    protected function getPackageProviders($app): array
     {
         return [
-            SkeletonServiceProvider::class,
+            RequestFactoriesServiceProvider::class,
         ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
     }
 }

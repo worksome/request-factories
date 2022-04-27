@@ -1,5 +1,16 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+declare(strict_types=1);
 
-uses(TestCase::class)->in(__DIR__);
+use Illuminate\Support\Str;
+use Worksome\RequestFactories\Tests\TestCase;
+
+uses(TestCase::class)->in('Feature');
+
+function tmp(string $path = ''): string
+{
+    return Str::of($path)
+        ->start('/')
+        ->prepend(__DIR__ . '/tmp')
+        ->__toString();
+}

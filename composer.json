@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "worksome/request-factories",
+    "description": "Test Form Requests in Laravel without all of the boilerplate.",
     "keywords": [
-        ":vendor_name",
+        "worksome",
         "laravel",
-        ":package_slug"
+        "request-factories"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/worksome/request-factories",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "luke",
+            "email": "lukeraymonddowning@gmail.com",
             "role": "Developer"
         }
     ],
@@ -33,13 +33,14 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Worksome\\RequestFactories\\": "src",
+            "Worksome\\RequestFactories\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Worksome\\RequestFactories\\Tests\\": "tests",
+            "App\\Http\\Requests\\": "tests/Doubles/Requests"
         }
     },
     "scripts": {
@@ -60,11 +61,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
+                "Worksome\\RequestFactories\\RequestFactoriesServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
