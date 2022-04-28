@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Http\UploadedFile;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 
 it('can generate an array of data', function () {
@@ -19,7 +20,6 @@ it('can generate an array of data', function () {
 });
 
 it('can provide attributes when instantiating', function () {
-    $name =
     $data = ExampleFormRequestFactory::new(['name' => 'Luke Downing'])->create();
 
     expect($data['name'])->toBe('Luke Downing');
@@ -84,5 +84,28 @@ it('allows the user to configure the factory', function () {
         return $factory->afterCreating(fn () => ['foo' => 'bar']);
     });
 
-    expect(ExampleFormRequestFactory::new()->create())->toBe(['foo' => 'bar']);
+    expect(ExampleFormRequestFactory::new()->create()->all())->toBe(['foo' => 'bar']);
+});
+
+it('can extract files from the request', function () {
+    $data = ExampleFormRequestFactory::new()->state([
+        'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
+    ])->create();
+
+    expect($data['profile_picture'])->toBeInstanceOf(UploadedFile::class);
+    expect($data->files()['profile_picture'])->toBeInstanceOf(UploadedFile::class);
+});
+
+it('can return input without files', function () {
+    $data = ExampleFormRequestFactory::new()->state([
+        'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
+    ])->create();
+
+    expect($data->input())->not->toHaveKey('profile_picture');
+});
+
+it('is iterable', function () {
+    $data = ExampleFormRequestFactory::new()->create();
+
+    expect($data)->toBeIterable();
 });

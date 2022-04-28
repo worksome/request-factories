@@ -7,11 +7,17 @@ namespace Worksome\RequestFactories;
 use Closure;
 use Faker\Factory;
 use Faker\Generator;
+use File;
+use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
 {
     protected Generator $faker;
 
+    /**
+     * @param array<mixed> $attributes
+     * @param array<Closure(array): array|void> $afterCreatingHooks
+     */
     public function __construct(
         protected array $attributes = [],
         protected array $afterCreatingHooks = [],
@@ -69,10 +75,8 @@ abstract class RequestFactory
     /**
      * Return an array of data to be used as mock input
      * for the relevant Form Request.
-     *
-     * @return array<mixed>
      */
-    public function create(array $attributes = []): array
+    public function create(array $attributes = []): Result
     {
         $requestedData = collect(array_merge(
             $this->definition(),
@@ -85,14 +89,13 @@ abstract class RequestFactory
          * as other Request Factories and Closures. Closures should always resolve
          * after everything else, so we do this step in two separate stages.
          */
-
         $dataBeforeResolvingClosures = $requestedData->map(fn (mixed $data) => $this->handleData($data));
 
         $dataBeforeResolvingAfterCreatingHooks = $dataBeforeResolvingClosures
             ->map(fn (mixed $data) => $this->handleClosure($data, $dataBeforeResolvingClosures->all()))
             ->all();
 
-        return $this->invokeAfterCreatingHooks($dataBeforeResolvingAfterCreatingHooks);
+        return new Result($this->invokeAfterCreatingHooks($dataBeforeResolvingAfterCreatingHooks));
     }
 
     protected function faker(): Generator
@@ -103,7 +106,7 @@ abstract class RequestFactory
     protected function handleData(mixed $data): mixed
     {
         if ($data instanceof RequestFactory) {
-            $data = $data->create();
+            $data = $data->create()->input();
         }
 
         return $data;

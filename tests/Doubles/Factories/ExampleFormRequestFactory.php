@@ -6,6 +6,7 @@ namespace Worksome\RequestFactories\Tests\Doubles\Factories;
 
 use Closure;
 use Worksome\RequestFactories\RequestFactory;
+use Worksome\RequestFactories\Support\Result;
 
 final class ExampleFormRequestFactory extends RequestFactory
 {
@@ -37,7 +38,7 @@ final class ExampleFormRequestFactory extends RequestFactory
         self::$configurationCallback = $callback;
     }
 
-    public function create(array $attributes = []): array
+    public function create(array $attributes = []): Result
     {
         $result = parent::create($attributes);
 
