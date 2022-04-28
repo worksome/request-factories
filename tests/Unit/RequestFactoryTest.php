@@ -75,11 +75,14 @@ it('allows adding custom functionality in an afterCreating hook', function () {
 });
 
 it('allows the user to configure the factory', function () {
+    /**
+     * You would usually configure a factory internally using the `::configure` method,
+     * but we want a little more control in tests, so we make use of the test helper
+     * on ExampleFormRequestFactory to override the functionality.
+     */
     ExampleFormRequestFactory::configureUsing(function (ExampleFormRequestFactory $factory) {
         return $factory->afterCreating(fn () => ['foo' => 'bar']);
     });
 
-    $data = ExampleFormRequestFactory::new()->create();
-
-    expect($data)->toBe(['foo' => 'bar']);
+    expect(ExampleFormRequestFactory::new()->create())->toBe(['foo' => 'bar']);
 });
