@@ -20,5 +20,6 @@ final class RequestFactoriesServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton(FinderContract::class, Finder::class);
+        $this->app->singleton(FactoryManager::class);
     }
 }

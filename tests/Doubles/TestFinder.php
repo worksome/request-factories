@@ -23,7 +23,7 @@ final class TestFinder implements FinderContract
 
     public function requestFactoriesNamespace(): string
     {
-        return $this->baseFinder->requestFactoriesNamespace();
+        return 'Worksome\\RequestFactories\\Tests\\Doubles\\Factories';
     }
 
     private function withCorrectSeparator(string $path): string

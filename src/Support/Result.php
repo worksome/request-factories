@@ -50,6 +50,11 @@ final class Result implements Arrayable, ArrayAccess, IteratorAggregate
         return array_filter($this->attributes, fn ($attribute) => $attribute instanceof SplFileInfo);
     }
 
+    public function hasFiles(): bool
+    {
+        return count($this->files()) > 0;
+    }
+
     /**
      * @return array<mixed>
      */

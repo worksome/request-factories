@@ -7,7 +7,6 @@ namespace Worksome\RequestFactories;
 use Closure;
 use Faker\Factory;
 use Faker\Generator;
-use File;
 use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
