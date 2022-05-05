@@ -109,3 +109,9 @@ it('is iterable', function () {
 
     expect($data)->toBeIterable();
 });
+
+it('can unset keys using dot notation', function () {
+    $data = ExampleFormRequestFactory::new()->without(['name', 'address.line_one'])->create();
+
+    expect($data)->not->toHaveKeys(['name', 'address.line_one']);
+});

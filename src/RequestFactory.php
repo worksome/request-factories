@@ -7,6 +7,8 @@ namespace Worksome\RequestFactories;
 use Closure;
 use Faker\Factory;
 use Faker\Generator;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
@@ -19,6 +21,7 @@ abstract class RequestFactory
      */
     public function __construct(
         protected array $attributes = [],
+        protected array $without = [],
         protected array $afterCreatingHooks = [],
     )
     {
@@ -59,6 +62,11 @@ abstract class RequestFactory
         return $this->newInstance(attributes: $attributes);
     }
 
+    public function without(array $attributes): static
+    {
+        return $this->newInstance(without: $attributes);
+    }
+
     /**
      * Provide a Closure that will be called after the request data
      * has been created. If you return an array from that Closure,
@@ -94,7 +102,16 @@ abstract class RequestFactory
             ->map(fn (mixed $data) => $this->handleClosure($data, $dataBeforeResolvingClosures->all()))
             ->all();
 
-        return new Result($this->invokeAfterCreatingHooks($dataBeforeResolvingAfterCreatingHooks));
+        $dataAfterRemovingWithouts = $this->unsetRequestedWithouts($dataBeforeResolvingAfterCreatingHooks);
+
+        return new Result($this->invokeAfterCreatingHooks($dataAfterRemovingWithouts));
+    }
+
+    private function unsetRequestedWithouts(array &$requestedData): array
+    {
+        Arr::forget($requestedData, $this->without);
+
+        return $requestedData;
     }
 
     protected function faker(): Generator
@@ -134,11 +151,13 @@ abstract class RequestFactory
 
     protected function newInstance(
         array $attributes = [],
+        array $without = [],
         array $afterCreatingHooks = [],
     ): static
     {
         return new static(
             array_merge($this->attributes, $attributes),
+            array_merge($this->without, $without),
             array_merge($this->afterCreatingHooks, $afterCreatingHooks),
         );
     }
