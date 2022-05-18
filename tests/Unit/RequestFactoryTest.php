@@ -92,8 +92,11 @@ it('can extract files from the request', function () {
         'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
     ])->create();
 
-    expect($data['profile_picture'])->toBeInstanceOf(UploadedFile::class);
-    expect($data->files()['profile_picture'])->toBeInstanceOf(UploadedFile::class);
+    // Note that 'banner_image' and 'resume' are found on the base definition.
+    foreach (['profile_picture', 'banner_image', 'resume'] as $file) {
+        expect($data[$file])->toBeInstanceOf(UploadedFile::class);
+        expect($data->files()[$file])->toBeInstanceOf(UploadedFile::class);
+    }
 });
 
 it('can return input without files', function () {

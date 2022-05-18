@@ -7,6 +7,9 @@ namespace Worksome\RequestFactories;
 use Closure;
 use Faker\Factory;
 use Faker\Generator;
+use Illuminate\Http\Testing\File;
+use Illuminate\Http\Testing\FileFactory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Worksome\RequestFactories\Contracts\Finder;
 use Worksome\RequestFactories\Support\Map;
@@ -65,6 +68,19 @@ abstract class RequestFactory
     public function without(array $attributes): static
     {
         return $this->newInstance(without: $attributes);
+    }
+
+    /**
+     * @param string|null $name
+     * @return FileFactory|File
+     */
+    protected function file(string $name = null): FileFactory|File
+    {
+        if ($name === null) {
+            return UploadedFile::fake();
+        }
+
+        return UploadedFile::fake()->create($name);
     }
 
     /**

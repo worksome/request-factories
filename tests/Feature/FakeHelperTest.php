@@ -50,7 +50,11 @@ it('can include fake files', function () {
         'profile_picture' => UploadedFile::fake()->image('luke', 20, 20),
     ]));
 
-    post('/example')->assertJson(['files' => ['profile_picture']]);
+    post('/example')->assertJson(['files' => [
+        'banner_image',
+        'resume',
+        'profile_picture',
+    ]]);
 });
 
 it('includes an autoloaded fakeRequest helper for Pest', function () {
