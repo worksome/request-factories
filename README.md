@@ -41,13 +41,13 @@ it('can sign up a user with an international phone number', function () {
 });
 ```
 
-Soooooo much nicer. And all thanks to Request Factories. Let's dive in.
+Soooooo much nicer. And all thanks to Request Factories. Let's dive in...
 
 > Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
 
 ## Installation
 
-You can install the package as a developer dependency via composer:
+You can install the package as a developer dependency via Composer:
 
 ```bash
 composer require --dev worksome/request-factories 
