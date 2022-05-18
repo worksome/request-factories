@@ -19,6 +19,12 @@ final class ExampleFormRequestFactory extends RequestFactory
             'name' => $this->faker()->name,
             'address' => AddressFormRequestFactory::new()->withPostCode(),
             'banner_image' => $this->file()->image('banner.png'),
+        ];
+    }
+
+    public function files(): array
+    {
+        return [
             'resume' => $this->file('resume.pdf'),
         ];
     }

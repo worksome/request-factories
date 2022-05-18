@@ -45,6 +45,17 @@ abstract class RequestFactory
     abstract public function definition(): array;
 
     /**
+     * Define an array of files that should be included in the request.
+     * You may put files in the standard definition if you prefer.
+     *
+     * @return array<string, File>
+     */
+    public function files(): array
+    {
+        return [];
+    }
+
+    /**
      * If you would like to perform some form of internal setup,
      * you may override this method and insert any desired
      * logic. It will be called before creating.
@@ -103,6 +114,7 @@ abstract class RequestFactory
     {
         $requestedData = collect(array_merge(
             $this->definition(),
+            $this->files(),
             $this->attributes,
             $attributes
         ));
