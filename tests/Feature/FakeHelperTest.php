@@ -57,16 +57,20 @@ it('includes an autoloaded fakeRequest helper for Pest', function () {
     post('/example')->assertJsonStructure(['email', 'name', 'address']);
 })->fakeRequest(ExampleFormRequest::class);
 
+it('can pass a RequestFactory to fakeRequest', function () {
+    post('/example')->assertJsonStructure(['email', 'name', 'address']);
+})->fakeRequest(ExampleFormRequestFactory::class);
+
 it('can provide an array of attributes to fakeRequest', function () {
     post('/example')->assertJson(['email' => 'luke@worksome.com']);
 })->fakeRequest(ExampleFormRequest::class, ['email' => 'luke@worksome.com']);
 
-it('can provide a closure when faking using fakeRequest that allows for state transformations on the factory', function () {
-    post('/example')->assertJson(['framework' => 'Laravel']);
-})->fakeRequest(ExampleFormRequest::class, fn (ExampleFormRequestFactory $factory) => $factory->state(['framework' => 'Laravel']));
+it('can pass a RequestFactory to the Pest fakeRequest helper via a Closure', function () {
+    post('/example')->assertJson(['foo' => 'bar']);
+})->fakeRequest(fn() => ExampleFormRequest::factory()->state(['foo' => 'bar']));
 
 it('can register a factory using the `fake` method on the factory itself', function () {
-    ExampleFormRequest::factory()->state(['foo' => 'bar'])->fake();
+    ExampleFormRequestFactory::new()->state(['foo' => 'bar'])->fake();
 
     post('/example')->assertJson(['foo' => 'bar']);
 });

@@ -11,12 +11,18 @@ use Worksome\RequestFactories\RequestFactory;
 trait FakesRequests
 {
     /**
-     * @param class-string<FormRequest> $request
-     * @param array<mixed>|Closure(RequestFactory): RequestFactory $attributes
+     * @param class-string<FormRequest>|class-string<RequestFactory>|Closure(): RequestFactory $request
+     * @param array<mixed> $attributes
      */
-    public function fakeRequest(string $request, array|Closure $attributes = []): self
+    public function fakeRequest(string|Closure $request, array|Closure $attributes = []): self
     {
-        $request::fake($attributes);
+        $factory = match (true) {
+            is_subclass_of($request, FormRequest::class) => $request::factory(),
+            is_subclass_of($request, RequestFactory::class) => $request::new(),
+            default => $request(),
+        };
+
+        $factory->state($attributes)->fake();
 
         return $this;
     }
