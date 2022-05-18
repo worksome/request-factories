@@ -23,7 +23,7 @@ abstract class RequestFactory
      * @param array<mixed> $attributes
      * @param array<Closure(array): array|void> $afterCreatingHooks
      */
-    public function __construct(
+    final public function __construct(
         protected array $attributes = [],
         protected array $without = [],
         protected array $afterCreatingHooks = [],
@@ -99,7 +99,7 @@ abstract class RequestFactory
      * has been created. If you return an array from that Closure,
      * it will replace the generated request data.
      *
-     * @param Closure(array<mixed> $attributes): array<mixed>|void
+     * @param Closure(array<mixed> $attributes): (array<mixed>|void) $callback
      */
     public function afterCreating(Closure $callback): static
     {
@@ -171,6 +171,7 @@ abstract class RequestFactory
      */
     protected function invokeAfterCreatingHooks(array $attributes): array
     {
+        // @phpstan-ignore-next-line
         return collect($this->afterCreatingHooks)->reduce(
             fn ($latestAttributes, Closure $closure) => $closure($latestAttributes) ?? $latestAttributes,
             $attributes
@@ -195,11 +196,10 @@ abstract class RequestFactory
      */
     public function fake(): void
     {
+        // @phpstan-ignore-next-line
         $map = new Map(app(Finder::class));
 
-        app(FactoryManager::class)->fake(
-            $map->factoryToFormRequest(static::class),
-            $this
-        );
+        // @phpstan-ignore-next-line
+        app(FactoryManager::class)->fake($map->factoryToFormRequest(static::class), $this);
     }
 }

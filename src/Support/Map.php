@@ -24,7 +24,7 @@ final class Map
      */
     public function formRequestToFactory(string $formRequest): string
     {
-        if (property_exists($formRequest, 'factory')) {
+        if (property_exists($formRequest, 'factory') && is_string($formRequest::$factory) && is_subclass_of($formRequest::$factory, RequestFactory::class)) {
             return $formRequest::$factory;
         }
 
@@ -32,7 +32,7 @@ final class Map
         $factoryNamespace = $this->finder->requestFactoriesNamespace();
         $guessedFactoryFQCN = $factoryNamespace . '\\' . $requestPartialFQCN . 'Factory';
 
-        if (class_exists($guessedFactoryFQCN)) {
+        if (class_exists($guessedFactoryFQCN) && is_subclass_of($guessedFactoryFQCN, RequestFactory::class)) {
             return $guessedFactoryFQCN;
         }
 
@@ -46,7 +46,7 @@ final class Map
      */
     public function factoryToFormRequest(string $factory): string
     {
-        if (property_exists($factory, 'formRequest')) {
+        if (property_exists($factory, 'formRequest') && is_string($factory::$formRequest) && is_subclass_of($factory::$formRequest, FormRequest::class)) {
             return $factory::$formRequest;
         }
 
@@ -57,7 +57,7 @@ final class Map
 
         $guessedFormRequestFQCN =  'App\\Http\\Requests\\' . $factoryPartialFQCN;
 
-        if (class_exists($guessedFormRequestFQCN)) {
+        if (class_exists($guessedFormRequestFQCN) && is_subclass_of($guessedFormRequestFQCN, FormRequest::class)) {
             return $guessedFormRequestFQCN;
         }
 

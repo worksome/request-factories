@@ -62,21 +62,33 @@ final class Result implements Arrayable, ArrayAccess, IteratorAggregate
         return $this->all();
     }
 
+    /**
+     * @param array-key $offset
+     */
     public function offsetExists(mixed $offset): bool
     {
         return array_key_exists($offset, $this->all());
     }
 
+    /**
+     * @param array-key $offset
+     */
     public function offsetGet(mixed $offset): mixed
     {
         return $this->all()[$offset];
     }
 
+    /**
+     * @param array-key $offset
+     */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new BadMethodCallException('Factory results cannot be mutated.');
     }
 
+    /**
+     * @param array-key $offset
+     */
     public function offsetUnset(mixed $offset): void
     {
         throw new BadMethodCallException('Factory results cannot be mutated.');
