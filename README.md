@@ -250,6 +250,17 @@ it('does not allow profile pictures larger than 2000 pixels', function () {
 });
 ```
 
+The `state` method is your friend for any data you want to change on your factory. What about if you'd like to omit a property
+from the request? Try the `without` method!
+
+```php
+it('requires an email address', function () {
+    SignupRequest::factory()->without(['email'])->fake();
+    
+    put('/users')->assertInvalid(['email' => 'required']);
+});
+```
+
 ## Testing
 
 ```bash
