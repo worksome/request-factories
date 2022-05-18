@@ -201,6 +201,55 @@ it('can sign up a user with an international phone number', function () {
 })->fakeRequest(fn () => SignupRequest::factory());
 ```
 
+#### Overriding request factory data
+
+It's important to note the order of importance request factories take when injecting data into your request.
+
+1. Any data passed to `get`, `post`, `put`, `patch`, `delete` or similar methods will always take precedence.
+2. Data defined using `state`, or methods called on a factory that alter state will be next in line.
+3. Data defined in the factory `definition` and `files` methods come last, only filling out missing properties from the request.
+
+Let's take a look at an example to illustrate this order of importance:
+
+```php
+it('can sign up a user with an international phone number', function () {
+    SignupRequest::factory()->state(['name' => 'Oliver Nybroe', 'email' => 'oliver@worksome.com'])->fake();
+    
+    put('/users', ['email' => 'luke@worksome.com'])->assertValid();
+});
+```
+
+The default email defined in `SignupRequestFactory` is `foo@bar.com`. The default name is `Luke Downing`.
+Because we override the `name` property using the `state` method before calling `fake`, the name used in
+the form request will actually be `Oliver Nybroe`, not `Luke Downing`. 
+
+However, because we pass `luke@worksome.com` as data to the `put` function, that will take priority over
+*all other defined data*, both `foo@bar.com` and `oliver@worksome.com`.
+
+### The power of factories
+
+Factories are really cool, because they allow us to create a domain-specific-language for our feature tests. Because factories
+are classes, we can add declarative methods that serve as state transformers.
+
+```php
+// In our factory...
+class SignupRequestFactory extends RequestFactory
+{
+    // After the definition...
+    public function withOversizedProfilePicture(): static
+    {
+        return $this->state(['profile_picture' => $this->file()->image('profile.png', 2001, 2001)])
+    }
+}
+
+// In our test...
+it('does not allow profile pictures larger than 2000 pixels', function () {
+    SignupRequest::factory()->withOversizedProfilePicture()->fake();
+    
+    put('/users')->assertInvalid(['profile_picture' => 'size']);
+});
+```
+
 ## Testing
 
 ```bash
