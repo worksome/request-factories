@@ -8,7 +8,6 @@ use Worksome\RequestFactories\RequestFactory;
 
 final class AddressFormRequestFactory extends RequestFactory
 {
-
     public function definition(): array
     {
         return [

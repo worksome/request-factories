@@ -2,16 +2,13 @@
 
 namespace Worksome\RequestFactories\Concerns;
 
-use BadMethodCallException;
 use Closure;
-use Illuminate\Support\Str;
-use Worksome\RequestFactories\Contracts\Finder;
 use Worksome\RequestFactories\FactoryManager;
 use Worksome\RequestFactories\RequestFactory;
+use Worksome\RequestFactories\Support\Map;
 
 trait HasFactory
 {
-
     /**
      * Fake this Form Request using the related factory.
      *
@@ -19,7 +16,7 @@ trait HasFactory
      */
     public static function fake(array|Closure $attributes = []): void
     {
-        $factory = static::factory()::new();
+        $factory = static::factory();
 
         $factory = $attributes instanceof Closure
             ? $attributes($factory)
@@ -29,29 +26,10 @@ trait HasFactory
     }
 
     /**
-     * Retrieve the related factory FQCN for this Form Request.
-     *
-     * @return class-string<RequestFactory>
+     * Retrieve the related factory instance for this Form Request.
      */
-    public static function factory(): string
+    public static function factory(): RequestFactory
     {
-        if (property_exists(static::class, 'factory')) {
-            return static::$factory;
-        }
-
-        $requestPartialFQCN = Str::after(
-            self::class,
-            "App\\Http\\Requests\\",
-        );
-
-        $factoryNamespace = app(Finder::class)->requestFactoriesNamespace();
-        $guessedRequestFQCN = $factoryNamespace . '\\' . $requestPartialFQCN . 'Factory';
-
-        if (class_exists($guessedRequestFQCN)) {
-            return $guessedRequestFQCN;
-        }
-
-        throw new BadMethodCallException("Could not find [{$guessedRequestFQCN}]. Please specify a relevant Request FQCN using the \$factory property.");
+        return app(Map::class)->formRequestToFactory(static::class)::new();
     }
-
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Str;
+use Worksome\RequestFactories\Tests\Doubles\TestFinder;
 use Worksome\RequestFactories\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature');
@@ -13,4 +14,9 @@ function tmp(string $path = ''): string
         ->start('/')
         ->prepend(__DIR__ . '/tmp')
         ->__toString();
+}
+
+function finder(): TestFinder
+{
+    return new TestFinder();
 }

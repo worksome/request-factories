@@ -8,7 +8,8 @@ use Closure;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+use Worksome\RequestFactories\Contracts\Finder;
+use Worksome\RequestFactories\Support\Map;
 use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
@@ -23,14 +24,13 @@ abstract class RequestFactory
         protected array $attributes = [],
         protected array $without = [],
         protected array $afterCreatingHooks = [],
-    )
-    {
+    ) {
         $this->faker = Factory::create();
     }
 
     public static function new(array $attributes = []): static
     {
-        return (new static)->state($attributes)->configure();
+        return (new static())->state($attributes)->configure();
     }
 
     /**
@@ -153,12 +153,25 @@ abstract class RequestFactory
         array $attributes = [],
         array $without = [],
         array $afterCreatingHooks = [],
-    ): static
-    {
+    ): static {
         return new static(
             array_merge($this->attributes, $attributes),
             array_merge($this->without, $without),
             array_merge($this->afterCreatingHooks, $afterCreatingHooks),
+        );
+    }
+
+    /**
+     * Register the factory in its current state as the one to use
+     * when its FormRequest is resolved from the container.
+     */
+    public function fake(): void
+    {
+        $map = new Map(app(Finder::class));
+
+        app(FactoryManager::class)->fake(
+            $map->factoryToFormRequest(static::class),
+            $this
         );
     }
 }

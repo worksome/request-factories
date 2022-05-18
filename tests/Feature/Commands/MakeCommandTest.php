@@ -6,6 +6,7 @@ use App\Http\Requests\ExampleFormRequest;
 use App\Http\Requests\Nested\NestedExampleFormRequest;
 use Worksome\RequestFactories\Commands\MakeCommand;
 use Illuminate\Support\Facades\File;
+
 use function Pest\Laravel\artisan;
 
 afterEach(function () {
@@ -24,8 +25,8 @@ it('generates a new factory', function ($name, $namespace) {
         ->toContain("namespace {$namespace};")
         ->toContain("class {$basename} extends RequestFactory");
 })->with([
-    ['SignupRequestFactory', 'Tests\\RequestFactories'],
-    ['SubDirectory/SignupRequestFactory', 'Tests\\RequestFactories\\SubDirectory'],
+    ['name' => 'SignupRequestFactory', 'namespace' => finder()->requestFactoriesNamespace()],
+    ['name' => 'SubDirectory/SignupRequestFactory', 'namespace' => finder()->requestFactoriesNamespace() . '\\SubDirectory'],
 ]);
 
 it('can generate a factory name if a FormRequest FQCN is given as the name', function ($formRequest, $fileName) {
@@ -34,6 +35,6 @@ it('can generate a factory name if a FormRequest FQCN is given as the name', fun
     expect(tmp("tests/RequestFactories/{$fileName}"))
         ->toBeReadableFile()->toBeWritableFile();
 })->with([
-    [ExampleFormRequest::class, 'ExampleFormRequestFactory.php'],
-    [NestedExampleFormRequest::class, 'Nested/NestedExampleFormRequestFactory.php'],
+    ['formRequest' => ExampleFormRequest::class, 'fileName' => 'ExampleFormRequestFactory.php'],
+    ['formRequest' => NestedExampleFormRequest::class, 'fileName' => 'Nested/NestedExampleFormRequestFactory.php'],
 ]);

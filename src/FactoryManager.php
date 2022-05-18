@@ -25,23 +25,10 @@ final class FactoryManager
     {
         $this->fakes[$request] = $factory;
 
-        $this->container->resolving($request, function (FormRequest $request) {
-            $input = $this->getFake($request::class)->create();
-
-            $request->mergeIfMissing($input->input());
-
-            foreach ($input->files() as $name => $file) {
-                if ($request->files->has($name)) {
-                    continue;
-                }
-
-                $request->files->set($name, $file);
-            }
-
-            if ($input->hasFiles()) {
-                $this->clearFileCache($request);
-            }
-        });
+        $this->container->resolving(
+            $request,
+            fn(FormRequest $request) => $this->mergeFactoryIntoRequest($request)
+        );
     }
 
     /**
@@ -57,11 +44,30 @@ final class FactoryManager
      */
     public function getFake(string $request): RequestFactory
     {
-       if (! $this->hasFake($request)) {
-           throw new InvalidArgumentException("[{$request}] was never faked.");
-       }
+        if (!$this->hasFake($request)) {
+            throw new InvalidArgumentException("[{$request}] was never faked.");
+        }
 
-       return $this->fakes[$request];
+        return $this->fakes[$request];
+    }
+
+    private function mergeFactoryIntoRequest(FormRequest $formRequest): void
+    {
+        $input = $this->getFake($formRequest::class)->create();
+
+        $formRequest->mergeIfMissing($input->input());
+
+        foreach ($input->files() as $name => $file) {
+            if ($formRequest->files->has($name)) {
+                continue;
+            }
+
+            $formRequest->files->set($name, $file);
+        }
+
+        if ($input->hasFiles()) {
+            $this->clearFileCache($formRequest);
+        }
     }
 
     /**

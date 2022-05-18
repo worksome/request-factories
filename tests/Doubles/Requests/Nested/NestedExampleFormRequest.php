@@ -8,5 +8,4 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class NestedExampleFormRequest extends FormRequest
 {
-
 }

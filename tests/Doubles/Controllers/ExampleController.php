@@ -7,7 +7,6 @@ use Illuminate\Routing\Controller;
 
 final class ExampleController extends Controller
 {
-
     public function __invoke(ExampleFormRequest $request)
     {
         return response()->json(array_merge(
@@ -15,5 +14,4 @@ final class ExampleController extends Controller
             ['files' => array_keys($request->allFiles())],
         ));
     }
-
 }

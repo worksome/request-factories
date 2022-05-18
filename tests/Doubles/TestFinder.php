@@ -6,11 +6,10 @@ namespace Worksome\RequestFactories\Tests\Doubles;
 
 use Illuminate\Support\Str;
 use Worksome\RequestFactories\Contracts\Finder as FinderContract;
-use Worksome\RequestFactories\Support\Finder;
 
 final class TestFinder implements FinderContract
 {
-    public function __construct(private Finder $baseFinder)
+    public function __construct()
     {
     }
 

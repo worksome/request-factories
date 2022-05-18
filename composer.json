@@ -35,7 +35,10 @@
         "psr-4": {
             "Worksome\\RequestFactories\\": "src",
             "Worksome\\RequestFactories\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "src/PestAutoload.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
