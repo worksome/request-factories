@@ -56,6 +56,6 @@ final class MakeCommand extends GeneratorCommand
 
     protected function rootNamespace(): string
     {
-        return $this->finder->requestFactoriesNamespace();
+        return $this->finder->requestFactoriesNamespace() . '\\';
     }
 }
