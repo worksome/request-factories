@@ -17,6 +17,8 @@ final class MakeCommand extends GeneratorCommand
 
     public $description = 'Generate a new FormRequest Factory.';
 
+    protected $type = 'Request Factory';
+
     public function __construct(Filesystem $files, private Finder $finder)
     {
         parent::__construct($files);
