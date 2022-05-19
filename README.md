@@ -250,7 +250,7 @@ it('does not allow profile pictures larger than 2000 pixels', function () {
 });
 ```
 
-The `state` method is your friend for any data you want to change on your factory. What about if you'd like to omit a property
+The `state` method is your friend for any data you want to add or change on your factory. What about if you'd like to omit a property
 from the request? Try the `without` method!
 
 ```php
@@ -260,6 +260,51 @@ it('requires an email address', function () {
     put('/users')->assertInvalid(['email' => 'required']);
 });
 ```
+
+> 💡 You can use dot syntax in the `without` method to unset deeply nested keys
+
+Sometimes, you'll have a property that you want to be based on the value of other properties.
+In that case, you can provide a closure as the property value, which receives an array of all other parameters:
+
+```php
+class SignupRequestFactory extends RequestFactory
+{
+    public function definition(): array
+    {
+        return [
+            'name' => 'Luke Downing',
+            'company' => 'Worksome',
+            'email' => fn ($properties) => Str::of($properties['name'])
+                ->replace(' ', '.')
+                ->append("@{$properties['company']}.com")
+                ->lower()
+                ->__toString(), // luke.downing@worksome.com
+        ];
+    }
+}
+```
+
+Occasionally, you'll notice that multiple requests across your application share a similar subset of fields. For example,
+a signup form and a payment form might both contain an address array. Rather than duplicating these fields in your factory, you can 
+nest factories inside factories...
+
+```php
+class SignupRequestFactory extends RequestFactory
+{
+    public function definition(): array
+    {
+        return [
+            'name' => 'Luke Downing',
+            'company' => 'Worksome',
+            'address' => AddressRequestFactory::new(),
+        ];
+    }
+}
+```
+
+Now, when the `SignupRequestFactory` is created, it will resolve the `AddressRequestFactory` for you
+and fill the `address` property with all fields contained in the `AddressRequestFactory` definition.
+Pretty cool hey?
 
 ## Testing
 
