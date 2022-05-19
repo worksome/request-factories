@@ -21,6 +21,7 @@ class TestCase extends Orchestra
          * testing auto request injection.
          */
         Route::post('/example', ExampleController::class);
+        Route::post('/example-2', [ExampleController::class, 'store']);
     }
 
     /**

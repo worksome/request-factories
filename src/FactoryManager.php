@@ -6,18 +6,19 @@ namespace Worksome\RequestFactories;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use InvalidArgumentException;
 use ReflectionClass;
 
 final class FactoryManager
 {
     /**
-     * @var array<class-string<FormRequest>, RequestFactory>
+     * @var array<class-string<Request>, RequestFactory>
      */
     private array $fakes = [];
 
     /**
-     * @var array<int, class-string<FormRequest>>
+     * @var array<int, class-string<Request>>
      */
     private array $requestsWithResolvers = [];
 
@@ -26,7 +27,7 @@ final class FactoryManager
     }
 
     /**
-     * @param class-string<FormRequest> $request
+     * @param class-string<Request> $request
      */
     public function fake(string $request, RequestFactory $factory): void
     {
@@ -36,26 +37,61 @@ final class FactoryManager
             return;
         }
 
-        $this->container->resolving(
-            $request,
-            fn(FormRequest $request) => $this->mergeFactoryIntoRequest($request)
-        );
+        if (is_subclass_of($request, FormRequest::class)) {
+            $this->container->resolving(
+                $request,
+                fn(Request $request) => $this->mergeFactoryIntoRequest($request)
+            );
+        }
 
         $this->requestsWithResolvers[] = $request;
     }
 
     /**
-     * @param class-string $request
+     * @param class-string<Request> $request
      */
     public function hasFake(string $request): bool
     {
         return array_key_exists($request, $this->fakes);
     }
 
+    public function hasGenericFake(): bool
+    {
+        return array_key_exists(Request::class, $this->fakes);
+    }
+
+    public function mergeFactoryIntoRequest(Request $request): void
+    {
+        $input = $this->getFake($request::class)->create();
+
+        /**
+         * It would be nicer to use `mergeIfMissing`, but for the sake
+         * of supporting earlier Laravel versions, we might as well
+         * do this bit of custom logic instead.
+         */
+        foreach ($input->input() as $key => $value) {
+            if ($request->missing($key)) {
+                $request->merge([$key => $value]);
+            }
+        }
+
+        foreach ($input->files() as $name => $file) {
+            if ($request->files->has($name)) {
+                continue;
+            }
+
+            $request->files->set($name, $file);
+        }
+
+        if ($input->hasFiles()) {
+            $this->clearFileCache($request);
+        }
+    }
+
     /**
-     * @param class-string $request
+     * @param class-string<Request> $request
      */
-    public function getFake(string $request): RequestFactory
+    private function getFake(string $request): RequestFactory
     {
         if (!$this->hasFake($request)) {
             throw new InvalidArgumentException("[{$request}] was never faked.");
@@ -64,40 +100,12 @@ final class FactoryManager
         return $this->fakes[$request];
     }
 
-    private function mergeFactoryIntoRequest(FormRequest $formRequest): void
-    {
-        $input = $this->getFake($formRequest::class)->create();
-
-        /**
-         * It would be nicer to use `mergeIfMissing`, but for the sake
-         * of supporting earlier Laravel versions, we might as well
-         * do this bit of custom logic instead.
-         */
-        foreach ($input->input() as $key => $value) {
-            if ($formRequest->missing($key)) {
-                $formRequest->merge([$key => $value]);
-            }
-        }
-
-        foreach ($input->files() as $name => $file) {
-            if ($formRequest->files->has($name)) {
-                continue;
-            }
-
-            $formRequest->files->set($name, $file);
-        }
-
-        if ($input->hasFiles()) {
-            $this->clearFileCache($formRequest);
-        }
-    }
-
     /**
      * Laravel caches files prior to our data injection taking place,
      * so if we have placed fake files in the request, we should
      * clear that cache to allow it to rebuild correctly.
      */
-    private function clearFileCache(FormRequest $request): void
+    private function clearFileCache(Request $request): void
     {
         $mirror = new ReflectionClass($request);
         $convertedFiles = $mirror->getProperty('convertedFiles');

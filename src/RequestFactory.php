@@ -200,6 +200,9 @@ abstract class RequestFactory
         $map = new Map(app(Finder::class));
 
         // @phpstan-ignore-next-line
-        app(FactoryManager::class)->fake($map->factoryToFormRequest(static::class), $this);
+        app(FactoryManager::class)->fake(
+            $map->factoryToFormRequest(static::class),
+            $this
+        );
     }
 }

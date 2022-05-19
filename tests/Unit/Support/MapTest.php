@@ -3,7 +3,7 @@
 use App\Http\Requests\DeclaredFactoryPropertyFormRequest;
 use App\Http\Requests\ExampleFormRequest;
 use App\Http\Requests\RequestFactoryNotFoundFormRequest;
-use Worksome\RequestFactories\Exceptions\CouldNotLocateFormRequestException;
+use Illuminate\Http\Request;
 use Worksome\RequestFactories\Exceptions\CouldNotLocateRequestFactoryException;
 use Worksome\RequestFactories\Support\Map;
 use Worksome\RequestFactories\Tests\Doubles\Factories\DeclaredFormRequestPropertyFactory;
@@ -24,11 +24,12 @@ it('can automatically locate a FormRequest from a RequestFactory', function () {
         ->toBe(ExampleFormRequest::class);
 });
 
-it('throws an exception if a FormRequest cannot be located', function () {
+it('returns a standard Request if a FormRequest cannot be located', function () {
     $map = new Map(finder());
 
-    $map->factoryToFormRequest(RequestNotFoundFormRequestFactory::class);
-})->throws(CouldNotLocateFormRequestException::class);
+    expect($map->factoryToFormRequest(RequestNotFoundFormRequestFactory::class))
+        ->toBe(Request::class);
+});
 
 it('throws an exception if a RequestFactory cannot be located', function () {
     $map = new Map(finder());

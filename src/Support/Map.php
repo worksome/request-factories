@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Worksome\RequestFactories\Support;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Worksome\RequestFactories\Contracts\Finder;
-use Worksome\RequestFactories\Exceptions\CouldNotLocateFormRequestException;
 use Worksome\RequestFactories\Exceptions\CouldNotLocateRequestFactoryException;
 use Worksome\RequestFactories\RequestFactory;
 
@@ -41,8 +41,7 @@ final class Map
 
     /**
      * @param class-string<RequestFactory> $factory
-     * @return class-string<FormRequest>
-     * @throws CouldNotLocateFormRequestException
+     * @return class-string<Request>
      */
     public function factoryToFormRequest(string $factory): string
     {
@@ -61,6 +60,6 @@ final class Map
             return $guessedFormRequestFQCN;
         }
 
-        throw CouldNotLocateFormRequestException::make($factory, $guessedFormRequestFQCN);
+        return Request::class;
     }
 }
