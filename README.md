@@ -316,6 +316,19 @@ Now, when the `SignupRequestFactory` is created, it will resolve the `AddressReq
 and fill the `address` property with all fields contained in the `AddressRequestFactory` definition.
 Pretty cool hey?
 
+### Using factories without form requests
+
+Not every controller in your app requires a backing form request. Thankfully, we also support generic requests.
+Just call `fake` on a factory that doesn't have a supporting `FormRequest` and we'll register it as generic:
+
+```php
+it('lets a guest sign up to the newsletter', function () {
+    NewsletterSignupFactory::new()->fake();
+    
+    post('/newsletter', ['email' => 'foo@bar.com'])->assertRedirect('/thanks');
+});
+```
+
 ## Testing
 
 ```bash
