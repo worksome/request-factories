@@ -13,6 +13,7 @@ jobs:
       PREVENT_OUTPUT: true
     strategy:
       fail-fast: true
+      max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         php: [8.0, 8.1]
