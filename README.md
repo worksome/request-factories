@@ -2,7 +2,7 @@
 
 Test Form Requests in Laravel without all of the boilerplate.
 
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/worksome/request-factories/run-tests?label=tests)](https://github.com/worksome/envy/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![Unit Tests](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml)
 [![PHPStan](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml/badge.svg)](https://github.com/worksome/envy/actions/workflows/phpstan.yml)
 
 Take a look at the following test:
@@ -383,6 +383,8 @@ class TestCase extends BaseTestCase
 
 ## Testing
 
+We pride ourselves on a thorough test suite and strict static analysis. You can run all of our checks via a composer script:
+
 ```bash
 composer test
 ```
@@ -391,17 +393,9 @@ composer test
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
-- [luke](https://github.com/worksome)
+- [Luke Downing](https://github.com/lukeraymonddowning)
 - [All Contributors](../../contributors)
 
 ## License
