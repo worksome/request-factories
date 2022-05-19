@@ -169,8 +169,8 @@ abstract class RequestFactory
      */
     protected function invokeAfterCreatingHooks(array $attributes): array
     {
-        // @phpstan-ignore-next-line
         return collect($this->afterCreatingHooks)->reduce(
+            // @phpstan-ignore-next-line
             fn ($latestAttributes, Closure $closure) => $closure($latestAttributes) ?? $latestAttributes,
             $attributes
         );
