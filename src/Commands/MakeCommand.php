@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Worksome\RequestFactories\Commands;
 
 use Illuminate\Console\GeneratorCommand;
