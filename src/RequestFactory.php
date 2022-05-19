@@ -11,8 +11,6 @@ use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
-use Worksome\RequestFactories\Contracts\Finder;
-use Worksome\RequestFactories\Support\Map;
 use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
@@ -197,12 +195,6 @@ abstract class RequestFactory
     public function fake(): void
     {
         // @phpstan-ignore-next-line
-        $map = new Map(app(Finder::class));
-
-        // @phpstan-ignore-next-line
-        app(FactoryManager::class)->fake(
-            $map->factoryToFormRequest(static::class),
-            $this
-        );
+        app(FactoryManager::class)->fake($this);
     }
 }

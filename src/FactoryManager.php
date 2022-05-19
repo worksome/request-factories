@@ -4,60 +4,22 @@ declare(strict_types=1);
 
 namespace Worksome\RequestFactories;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use ReflectionClass;
 
 final class FactoryManager
 {
-    /**
-     * @var array<class-string<Request>, RequestFactory>
-     */
-    private array $fakes = [];
+    private RequestFactory|null $fake = null;
 
-    /**
-     * @var array<int, class-string<Request>>
-     */
-    private array $requestsWithResolvers = [];
-
-    public function __construct(private Container $container)
+    public function fake(RequestFactory $factory): void
     {
+        $this->fake = $factory;
     }
 
-    /**
-     * @param class-string<Request> $request
-     */
-    public function fake(string $request, RequestFactory $factory): void
+    public function hasFake(): bool
     {
-        $this->fakes[$request] = $factory;
-
-        if (in_array($request, $this->requestsWithResolvers)) {
-            return;
-        }
-
-        if (is_subclass_of($request, FormRequest::class)) {
-            $this->container->resolving(
-                $request,
-                fn(Request $request) => $this->mergeFactoryIntoRequest($request)
-            );
-        }
-
-        $this->requestsWithResolvers[] = $request;
-    }
-
-    /**
-     * @param class-string<Request> $request
-     */
-    public function hasFake(string $request): bool
-    {
-        return array_key_exists($request, $this->fakes);
-    }
-
-    public function hasGenericFake(): bool
-    {
-        return array_key_exists(Request::class, $this->fakes);
+        return $this->fake !== null;
     }
 
     public function mergeFactoryIntoRequest(Request $request): void
@@ -93,11 +55,11 @@ final class FactoryManager
      */
     private function getFake(string $request): RequestFactory
     {
-        if (!$this->hasFake($request)) {
+        if ($this->fake === null) {
             throw new InvalidArgumentException("[{$request}] was never faked.");
         }
 
-        return $this->fakes[$request];
+        return $this->fake;
     }
 
     /**

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Worksome\RequestFactories\Concerns;
 
 use Closure;
-use Illuminate\Container\Container;
-use Worksome\RequestFactories\Contracts\Finder;
 use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Support\Map;
 
@@ -33,15 +31,6 @@ trait HasFactory
      */
     public static function factory(): RequestFactory
     {
-        /**
-         * We may be instantiating a factory using the Pest `fakeRequest`
-         * helper. That being the case, we support calling `factory`
-         * outside the Laravel lifecycle.
-         */
-        $finder = Container::getInstance()->has(Finder::class)
-            ? Container::getInstance()->get(Finder::class)
-            : new \Worksome\RequestFactories\Support\Finder();
-
-        return (new Map($finder))->formRequestToFactory(static::class)::new();
+        return app(Map::class)->formRequestToFactory(static::class)::new();
     }
 }

@@ -16,7 +16,7 @@ class InjectFakeDataMiddleware
 
     public function handle(Request $request, Closure $next): mixed
     {
-        if ($this->factoryManager->hasGenericFake()) {
+        if ($this->factoryManager->hasFake()) {
             $this->factoryManager->mergeFactoryIntoRequest($request);
         }
 
