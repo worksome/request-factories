@@ -3,7 +3,7 @@
 Test Form Requests in Laravel without all of the boilerplate.
 
 [![Unit Tests](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml)
-[![PHPStan](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml/badge.svg)](https://github.com/worksome/envy/actions/workflows/phpstan.yml)
+[![PHPStan](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml)
 
 Take a look at the following test:
 
