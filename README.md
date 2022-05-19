@@ -363,7 +363,7 @@ it('allows a user to sign up and update their profile', function () {
 
 ### I don't want to use the default location for storing request factories
 
-Not a problem. Use the `RequestFactories::location` method in your Laravel `TestCase` setUp
+Not a problem. Use the `RequestFactories::location` method in your Laravel `TestCase::setUp`
 to point us in the right direction:
 
 ```php
