@@ -1,27 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Worksome\RequestFactories\Support;
 
 use Illuminate\Support\Str;
-use Worksome\RequestFactories\Contracts\Finder as FinderContract;
+use Worksome\RequestFactories\Contracts\Finder;
 
-/**
- * @internal
- */
-final class Finder implements FinderContract
+final class CustomisableFinder implements Finder
 {
+    public function __construct(private string $path, private string $namespace)
+    {
+    }
+
     public function requestFactoriesLocation(string $name = ''): string
     {
-        $path = Str::of($name)->start('/')->prepend('tests/RequestFactories')->__toString();
+        $path = Str::of($name)->start('/')->prepend($this->path)->__toString();
 
-        return $this->withCorrectSeparator(base_path($path));
+        return $this->withCorrectSeparator($path);
     }
 
     public function requestFactoriesNamespace(): string
     {
-        return 'Tests\\RequestFactories';
+        return $this->namespace;
     }
 
     private function withCorrectSeparator(string $path): string

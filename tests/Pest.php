@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Str;
-use Worksome\RequestFactories\Tests\Doubles\TestFinder;
+use Worksome\RequestFactories\Support\CustomisableFinder;
 use Worksome\RequestFactories\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature');
@@ -16,7 +16,10 @@ function tmp(string $path = ''): string
         ->__toString();
 }
 
-function finder(): TestFinder
+function finder(): CustomisableFinder
 {
-    return new TestFinder();
+    return new CustomisableFinder(
+        __DIR__ . '/tmp/tests/RequestFactories',
+        'Worksome\\RequestFactories\\Tests\\Doubles\\Factories',
+    );
 }
