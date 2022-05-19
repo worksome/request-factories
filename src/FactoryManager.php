@@ -66,7 +66,16 @@ final class FactoryManager
     {
         $input = $this->getFake($formRequest::class)->create();
 
-        $formRequest->mergeIfMissing($input->input());
+        /**
+         * It would be nicer to use `mergeIfMissing`, but for the sake
+         * of supporting earlier Laravel versions, we might as well
+         * do this bit of custom logic instead.
+         */
+        foreach ($input->input() as $key => $value) {
+            if ($formRequest->missing($key)) {
+                $formRequest->merge([$key => $value]);
+            }
+        }
 
         foreach ($input->files() as $name => $file) {
             if ($formRequest->files->has($name)) {
