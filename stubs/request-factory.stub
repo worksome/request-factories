@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use Worksome\RequestFactories;
+use Worksome\RequestFactories\RequestFactory;
 
 class DummyClass extends RequestFactory
 {
