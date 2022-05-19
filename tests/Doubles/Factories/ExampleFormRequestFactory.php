@@ -59,4 +59,9 @@ final class ExampleFormRequestFactory extends RequestFactory
 
         return $result;
     }
+
+    public function withProfession(string $profession)
+    {
+        return $this->state(['profession' => $profession]);
+    }
 }

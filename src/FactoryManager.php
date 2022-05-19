@@ -10,25 +10,36 @@ use ReflectionClass;
 final class FactoryManager
 {
     /**
-     * @var array<string, RequestFactory>
+     * @var array<class-string<FormRequest>, RequestFactory>
      */
     private array $fakes = [];
+
+    /**
+     * @var array<int, class-string<FormRequest>>
+     */
+    private array $requestsWithResolvers = [];
 
     public function __construct(private Container $container)
     {
     }
 
     /**
-     * @param class-string $request
+     * @param class-string<FormRequest> $request
      */
     public function fake(string $request, RequestFactory $factory): void
     {
         $this->fakes[$request] = $factory;
 
+        if (in_array($request, $this->requestsWithResolvers)) {
+            return;
+        }
+
         $this->container->resolving(
             $request,
             fn(FormRequest $request) => $this->mergeFactoryIntoRequest($request)
         );
+
+        $this->requestsWithResolvers[] = $request;
     }
 
     /**

@@ -73,6 +73,18 @@ it('can pass a RequestFactory to the Pest fakeRequest helper via a Closure', fun
     post('/example')->assertJson(['foo' => 'bar']);
 })->fakeRequest(fn() => ExampleFormRequest::factory()->state(['foo' => 'bar']));
 
+it('can chain RequestFactory methods onto the fakeRequest helper', function () {
+    post('/example')->assertJson([
+        'foo' => 'bar',
+        'profession' => 'Clown'
+    ]);
+})
+    ->skip(false) // Note that we can call Pest methods before...
+    ->fakeRequest(ExampleFormRequest::class)
+    ->state(['foo' => 'bar'])
+    ->withProfession('Clown')
+    ->group('feature'); // ...or after the RequestFactory chain.
+
 it('can register a factory using the `fake` method on the factory itself', function () {
     ExampleFormRequestFactory::new()->state(['foo' => 'bar'])->fake();
 
