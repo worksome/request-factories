@@ -59,7 +59,7 @@ First, let's create a new `RequestFactory`. A `RequestFactory` usually complimen
 in your application. You can create a `RequestFactory` using the `make:request-factory` Artisan command:
 
 ```bash
-php artisan make:request-factory App\Http\Requests\SignupRequest
+php artisan make:request-factory "App\Http\Requests\SignupRequest"
 ```
 
 Note that we've passed the `SignupRequest` FQCN as an argument. This will create a new request factory
