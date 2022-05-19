@@ -35,6 +35,8 @@ it('can generate a factory name if a FormRequest FQCN is given as the name', fun
     expect(tmp("tests/RequestFactories/{$fileName}"))
         ->toBeReadableFile()->toBeWritableFile();
 })->with([
-    ['formRequest' => ExampleFormRequest::class, 'fileName' => 'ExampleFormRequestFactory.php'],
-    ['formRequest' => NestedExampleFormRequest::class, 'fileName' => 'Nested/NestedExampleFormRequestFactory.php'],
+    ['formRequest' => 'App\\Http\\Requests\\ExampleFormRequest', 'fileName' => 'ExampleFormRequestFactory.php'],
+    ['formRequest' => 'App/Http/Requests/ExampleFormRequest', 'fileName' => 'ExampleFormRequestFactory.php'],
+    ['formRequest' => 'App\\Http\\Requests\\Nested\\NestedExampleFormRequest', 'fileName' => 'Nested/NestedExampleFormRequestFactory.php'],
+    ['formRequest' => 'App/Http/Requests/Nested/NestedExampleFormRequest', 'fileName' => 'Nested/NestedExampleFormRequestFactory.php'],
 ]);

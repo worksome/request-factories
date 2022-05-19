@@ -24,7 +24,7 @@ final class MakeCommand extends GeneratorCommand
 
     protected function getNameInput(): string
     {
-        $name = parent::getNameInput();
+        $name = Str::replace(['\\', '/'], '\\', parent::getNameInput());
 
         if (! class_exists($name)) {
             return $name;
