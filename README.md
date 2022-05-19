@@ -5,6 +5,8 @@ Test Form Requests in Laravel without all the boilerplate.
 [![Unit Tests](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml)
 [![PHPStan](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml)
 
+> 💡 Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
+
 Take a look at the following test:
 
 ```php
@@ -42,8 +44,6 @@ it('can sign up a user with an international phone number', function () {
 ```
 
 Soooooo much nicer. And all thanks to Request Factories. Let's dive in...
-
-> 💡 Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
 
 ## Installation
 
