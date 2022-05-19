@@ -17,13 +17,12 @@ final class FactoryManager
         $this->fake = $factory;
     }
 
-    public function hasFake(): bool
-    {
-        return $this->fake !== null;
-    }
-
     public function mergeFactoryIntoRequest(Request $request): void
     {
+        if ($this->fake === null) {
+            return;
+        }
+
         $input = $this->getFake($request::class)->create();
 
         /**

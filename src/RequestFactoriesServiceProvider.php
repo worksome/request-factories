@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Worksome\RequestFactories;
 
-use Illuminate\Foundation\Http\Kernel;
+use Illuminate\Routing\Events\RouteMatched;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Worksome\RequestFactories\Commands\MakeCommand;
 use Worksome\RequestFactories\Contracts\Finder as FinderContract;
-use Worksome\RequestFactories\Middleware\InjectFakeDataMiddleware;
 use Worksome\RequestFactories\Support\Finder;
 
 final class RequestFactoriesServiceProvider extends PackageServiceProvider
@@ -29,8 +28,14 @@ final class RequestFactoriesServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        $this->app->resolving(Kernel::class, function (Kernel $kernel) {
-            $kernel->pushMiddleware(InjectFakeDataMiddleware::class);
+        if (! $this->app->runningUnitTests()) {
+            return;
+        }
+
+        // @phpstan-ignore-next-line
+        $this->app['events']->listen(RouteMatched::class, function (RouteMatched $event) {
+            // @phpstan-ignore-next-line
+            $this->app[FactoryManager::class]->mergeFactoryIntoRequest($event->request);
         });
     }
 }
