@@ -43,7 +43,7 @@ it('can sign up a user with an international phone number', function () {
 
 Soooooo much nicer. And all thanks to Request Factories. Let's dive in...
 
-> Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
+> 💡 Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
 
 ## Installation
 
@@ -201,6 +201,16 @@ it('can sign up a user with an international phone number', function () {
 })->fakeRequest(fn () => SignupRequest::factory());
 ```
 
+You can even chain factory methods onto the end of the `fakeRequest` method:
+
+```php
+it('can sign up a user with an international phone number', function () {
+    put('/users')->assertValid();
+})
+    ->fakeRequest(SignupRequest::class)
+    ->state(['name' => 'Jane Bloggs']);
+```
+
 #### Overriding request factory data
 
 It's important to note the order of importance request factories take when injecting data into your request.
@@ -286,7 +296,7 @@ class SignupRequestFactory extends RequestFactory
 
 Occasionally, you'll notice that multiple requests across your application share a similar subset of fields. For example,
 a signup form and a payment form might both contain an address array. Rather than duplicating these fields in your factory, you can 
-nest factories inside factories...
+nest factories inside factories:
 
 ```php
 class SignupRequestFactory extends RequestFactory
