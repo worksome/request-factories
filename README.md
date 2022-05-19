@@ -331,7 +331,7 @@ it('lets a guest sign up to the newsletter', function () {
 ## Solving common issues
 
 <details>
-<summary>I'm getting a `CouldNotLocateRequestFactoryException`</summary>
+<summary style="font-weight: bolder">I'm getting a `CouldNotLocateRequestFactoryException`</summary>
 
 When using the `HasFactory` trait on a `FormRequest`, we attempt to auto-locate the relevant
 request factory for you. If your directory structure doesn't match for whatever reason, this exception
@@ -350,7 +350,7 @@ class SignupRequest extends FormRequest
 </details>
 
 <details>
-<summary>I call multiple routes in a single test and want to fake both</summary>
+<summary style="font-weight: bolder">I call multiple routes in a single test and want to fake both</summary>
 
 No sweat. Just place a call to `fake` on the relevant request factory before making each request:
 
@@ -366,7 +366,7 @@ it('allows a user to sign up and update their profile', function () {
 </details>
 
 <details>
-<summary>I don't want to use the default location for storing request factories</summary>
+<summary style="font-weight: bolder">I don't want to use the default location for storing request factories</summary>
 
 Not a problem. Use the `RequestFactories::location` method in your Laravel `TestCase` setUp
 to point us in the right direction:
