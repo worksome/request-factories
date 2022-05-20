@@ -78,6 +78,18 @@ abstract class RequestFactory
     }
 
     /**
+     * Provide a Closure that will be called after the request data
+     * has been created. If you return an array from that Closure,
+     * it will replace the generated request data.
+     *
+     * @param Closure(array<mixed> $attributes): (array<mixed>|void) $callback
+     */
+    public function afterCreating(Closure $callback): static
+    {
+        return $this->newInstance(afterCreatingHooks: [$callback]);
+    }
+
+    /**
      * @return array<mixed>
      */
     public function getAttributes(): array
@@ -112,18 +124,6 @@ abstract class RequestFactory
         }
 
         return UploadedFile::fake()->create($name);
-    }
-
-    /**
-     * Provide a Closure that will be called after the request data
-     * has been created. If you return an array from that Closure,
-     * it will replace the generated request data.
-     *
-     * @param Closure(array<mixed> $attributes): (array<mixed>|void) $callback
-     */
-    public function afterCreating(Closure $callback): static
-    {
-        return $this->newInstance(afterCreatingHooks: [$callback]);
     }
 
     protected function faker(): Generator
