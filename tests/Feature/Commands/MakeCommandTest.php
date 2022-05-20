@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Requests\ExampleFormRequest;
-use App\Http\Requests\Nested\NestedExampleFormRequest;
 use Worksome\RequestFactories\Commands\MakeCommand;
 use Illuminate\Support\Facades\File;
 

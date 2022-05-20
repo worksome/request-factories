@@ -10,8 +10,6 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
-use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
 {
@@ -80,6 +78,30 @@ abstract class RequestFactory
     }
 
     /**
+     * @return array<mixed>
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getWithout(): array
+    {
+        return $this->without;
+    }
+
+    /**
+     * @return array<Closure(array): array|void>
+     */
+    public function getAfterCreatingHooks(): array
+    {
+        return $this->afterCreatingHooks;
+    }
+
+    /**
      * @param string|null $name
      * @return FileFactory|File
      */
@@ -104,76 +126,9 @@ abstract class RequestFactory
         return $this->newInstance(afterCreatingHooks: [$callback]);
     }
 
-    /**
-     * Return an array of data to be used as mock input
-     * for the relevant Form Request.
-     */
-    public function create(array $attributes = []): Result
-    {
-        $requestedData = collect(array_merge(
-            $this->definition(),
-            $this->files(),
-            $this->attributes,
-            $attributes
-        ));
-
-        /**
-         * We now need to handle "special" objects in the $requestedData array, such
-         * as other Request Factories and Closures. Closures should always resolve
-         * after everything else, so we do this step in two separate stages.
-         */
-        $dataBeforeResolvingClosures = $requestedData->map(fn (mixed $data) => $this->handleData($data));
-
-        $dataBeforeResolvingAfterCreatingHooks = $dataBeforeResolvingClosures
-            ->map(fn (mixed $data) => $this->handleClosure($data, $dataBeforeResolvingClosures->all()))
-            ->all();
-
-        $dataAfterRemovingWithouts = $this->unsetRequestedWithouts($dataBeforeResolvingAfterCreatingHooks);
-
-        return new Result($this->invokeAfterCreatingHooks($dataAfterRemovingWithouts));
-    }
-
-    private function unsetRequestedWithouts(array &$requestedData): array
-    {
-        Arr::forget($requestedData, $this->without);
-
-        return $requestedData;
-    }
-
     protected function faker(): Generator
     {
         return $this->faker;
-    }
-
-    protected function handleData(mixed $data): mixed
-    {
-        if ($data instanceof RequestFactory) {
-            $data = $data->create()->input();
-        }
-
-        return $data;
-    }
-
-    protected function handleClosure(mixed $data, array $attributes): mixed
-    {
-        if (! $data instanceof Closure) {
-            return $data;
-        }
-
-        return $data($attributes);
-    }
-
-    /**
-     * @param array<mixed> $attributes
-     * @return array<mixed>
-     */
-    protected function invokeAfterCreatingHooks(array $attributes): array
-    {
-        return collect($this->afterCreatingHooks)->reduce(
-            // @phpstan-ignore-next-line
-            fn ($latestAttributes, Closure $closure) => $closure($latestAttributes) ?? $latestAttributes,
-            $attributes
-        );
     }
 
     protected function newInstance(
@@ -189,8 +144,8 @@ abstract class RequestFactory
     }
 
     /**
-     * Register the factory in its current state as the one to use
-     * when its FormRequest is resolved from the container.
+     * Register the factory in its current state to be merged
+     * into the next request.
      */
     public function fake(): void
     {

@@ -6,7 +6,6 @@ namespace Worksome\RequestFactories\Tests\Doubles\Factories;
 
 use Closure;
 use Worksome\RequestFactories\RequestFactory;
-use Worksome\RequestFactories\Support\Result;
 
 final class ExampleFormRequestFactory extends RequestFactory
 {
@@ -31,11 +30,20 @@ final class ExampleFormRequestFactory extends RequestFactory
 
     public function configure(): static
     {
+        /**
+         * This acts as a reset between tests so that configuration doesn't
+         * leak over and cause strange bugs when running multiple tests
+         * at together.
+         */
+        $instance = $this->afterCreating(function () {
+            self::$configurationCallback = null;
+        });
+
         if (self::$configurationCallback !== null) {
-            return (self::$configurationCallback)($this);
+            return (self::$configurationCallback)($instance);
         }
 
-        return $this;
+        return $instance;
     }
 
     /**
@@ -44,20 +52,6 @@ final class ExampleFormRequestFactory extends RequestFactory
     public static function configureUsing(Closure $callback): void
     {
         self::$configurationCallback = $callback;
-    }
-
-    public function create(array $attributes = []): Result
-    {
-        $result = parent::create($attributes);
-
-        /**
-         * We don't want this static value to seep into other tests in the same process,
-         * so we'll clear the variable after we know that configure has been called.
-         * This acts as an automated reset between tests.
-         */
-        static::$configurationCallback = null;
-
-        return $result;
     }
 
     public function withProfession(string $profession)

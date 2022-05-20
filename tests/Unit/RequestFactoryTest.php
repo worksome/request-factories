@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 
 it('can generate an array of data', function () {
-    $createdData = ExampleFormRequestFactory::new()->create();
+    $createdData = creator(ExampleFormRequestFactory::new());
 
     expect($createdData)->toHaveKeys([
         'email',
@@ -20,22 +20,16 @@ it('can generate an array of data', function () {
 });
 
 it('can provide attributes when instantiating', function () {
-    $data = ExampleFormRequestFactory::new(['name' => 'Luke Downing'])->create();
-
-    expect($data['name'])->toBe('Luke Downing');
-});
-
-it('can provide attributes when creating', function () {
-    $data = ExampleFormRequestFactory::new()->create(['name' => 'Luke Downing']);
+    $data = creator(ExampleFormRequestFactory::new(['name' => 'Luke Downing']));
 
     expect($data['name'])->toBe('Luke Downing');
 });
 
 it('can alter attributes with the state method', function () {
-    $data = ExampleFormRequestFactory::new()->state([
+    $data = creator(ExampleFormRequestFactory::new()->state([
         'name' => 'Luke Downing',
         'email' => 'luke@downing.tech',
-    ])->create();
+    ]));
 
     expect($data)
         ->name->toBe('Luke Downing')
@@ -43,11 +37,11 @@ it('can alter attributes with the state method', function () {
 });
 
 it('can resolve nested form request factories', function () {
-    $data = ExampleFormRequestFactory::new()->state([
+    $data = creator(ExampleFormRequestFactory::new()->state([
         'secret_identity' => ExampleFormRequestFactory::new()->state([
             'super_secret_identity' => ExampleFormRequestFactory::new()
         ])
-    ])->create();
+    ]));
 
     expect($data)
         ->toHaveKey('secret_identity')
@@ -56,18 +50,18 @@ it('can resolve nested form request factories', function () {
 });
 
 it('can resolve property closures, and passes those closures all other parameters', function () {
-    $data = ExampleFormRequestFactory::new()->state([
+    $data = creator(ExampleFormRequestFactory::new()->state([
         'name' => 'Luke Downing',
         'description' => fn (array $attributes) => "Hello, my name is {$attributes['name']}"
-    ])->create();
+    ]));
 
     expect($data['description'])->toBe('Hello, my name is Luke Downing');
 });
 
 it('allows adding custom functionality in an afterCreating hook', function () {
-    $data = ExampleFormRequestFactory::new()->afterCreating(function (array $attributes) {
+    $data = creator(ExampleFormRequestFactory::new()->afterCreating(function (array $attributes) {
         return array_merge($attributes, ['foo' => 'bar']);
-    })->create();
+    }));
 
     expect($data)
         ->toHaveKeys(['name', 'email', 'foo'])
@@ -84,13 +78,13 @@ it('allows the user to configure the factory', function () {
         return $factory->afterCreating(fn () => ['foo' => 'bar']);
     });
 
-    expect(ExampleFormRequestFactory::new()->create()->all())->toBe(['foo' => 'bar']);
+    expect(creator(ExampleFormRequestFactory::new())->all())->toBe(['foo' => 'bar']);
 });
 
 it('can extract files from the request', function () {
-    $data = ExampleFormRequestFactory::new()->state([
+    $data = creator(ExampleFormRequestFactory::new()->state([
         'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
-    ])->create();
+    ]));
 
     // Note that 'banner_image' and 'resume' are found on the base definition.
     foreach (['profile_picture', 'banner_image', 'resume'] as $file) {
@@ -100,21 +94,21 @@ it('can extract files from the request', function () {
 });
 
 it('can return input without files', function () {
-    $data = ExampleFormRequestFactory::new()->state([
+    $data = creator(ExampleFormRequestFactory::new()->state([
         'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
-    ])->create();
+    ]));
 
     expect($data->input())->not->toHaveKey('profile_picture');
 });
 
 it('is iterable', function () {
-    $data = ExampleFormRequestFactory::new()->create();
+    $data = creator(ExampleFormRequestFactory::new());
 
     expect($data)->toBeIterable();
 });
 
 it('can unset keys using dot notation', function () {
-    $data = ExampleFormRequestFactory::new()->without(['name', 'address.line_one'])->create();
+    $data = creator(ExampleFormRequestFactory::new()->without(['name', 'address.line_one']));
 
     expect($data)->not->toHaveKeys(['name', 'address.line_one']);
 });
