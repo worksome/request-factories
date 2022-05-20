@@ -14,11 +14,9 @@ final class CreateFactoryResult implements CreatesFactoryResult
 {
     public function __invoke(RequestFactory $factory): Result
     {
-        $requestedData = collect(array_merge(
-            $factory->definition(),
-            $factory->files(),
-            $factory->getAttributes(),
-        ));
+        [$definition, $files, $attributes, $without, $afterCreatingHooks] = $factory->getDataNeededForCreatingResult();
+
+        $requestedData = collect(array_merge($definition, $files, $attributes));
 
         /**
          * We now need to handle "special" objects in the $requestedData array, such
@@ -33,12 +31,12 @@ final class CreateFactoryResult implements CreatesFactoryResult
 
         $dataAfterRemovingWithout = $this->unsetRequestedWithout(
             $dataBeforeResolvingAfterCreatingHooks,
-            $factory->getWithout(),
+            $without
         );
 
         return new Result($this->invokeAfterCreatingHooks(
             $dataAfterRemovingWithout,
-            $factory->getAfterCreatingHooks(),
+            $afterCreatingHooks,
         ));
     }
 

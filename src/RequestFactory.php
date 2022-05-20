@@ -72,6 +72,13 @@ abstract class RequestFactory
         return $this->newInstance(attributes: $attributes);
     }
 
+    /**
+     * Indicate that the given attributes should be omitted from the
+     * request. You can use dot syntax here to unset deeply nested
+     * keys in request data.
+     *
+     * @param array<int, string> $attributes
+     */
     public function without(array $attributes): static
     {
         return $this->newInstance(without: $attributes);
@@ -90,27 +97,13 @@ abstract class RequestFactory
     }
 
     /**
-     * @return array<mixed>
+     * Register the factory in its current state to be merged
+     * into the next request.
      */
-    public function getAttributes(): array
+    public function fake(): void
     {
-        return $this->attributes;
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    public function getWithout(): array
-    {
-        return $this->without;
-    }
-
-    /**
-     * @return array<Closure(array): array|void>
-     */
-    public function getAfterCreatingHooks(): array
-    {
-        return $this->afterCreatingHooks;
+        // @phpstan-ignore-next-line
+        app(FactoryManager::class)->fake($this);
     }
 
     /**
@@ -143,13 +136,14 @@ abstract class RequestFactory
         );
     }
 
-    /**
-     * Register the factory in its current state to be merged
-     * into the next request.
-     */
-    public function fake(): void
+    public function getDataNeededForCreatingResult(): array
     {
-        // @phpstan-ignore-next-line
-        app(FactoryManager::class)->fake($this);
+        return [
+            $this->definition(),
+            $this->files(),
+            $this->attributes,
+            $this->without,
+            $this->afterCreatingHooks,
+        ];
     }
 }
