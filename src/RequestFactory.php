@@ -10,7 +10,9 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
+use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\Support\FactoryData;
+use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
 {
@@ -95,6 +97,18 @@ abstract class RequestFactory
     public function afterCreating(Closure $callback): static
     {
         return $this->newInstance(afterCreatingHooks: [$callback]);
+    }
+
+    /**
+     * Create the factory and return an array of attributes that can be
+     * passed as data to a request.
+     *
+     * @param array<mixed> $attributes
+     * @return array<mixed>
+     */
+    public function create(array $attributes = []): array
+    {
+        return app(CreatesFactoryResult::class)($this->state($attributes))->all();
     }
 
     /**
