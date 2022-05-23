@@ -28,11 +28,9 @@ final class RequestFactoriesServiceProvider extends ServiceProvider
     {
         $this->commands(MakeCommand::class);
 
-        if (! $this->app->runningUnitTests()) {
-            return;
+        if ($this->app->runningUnitTests()) {
+            // @phpstan-ignore-next-line
+            $this->app['events']->listen(RouteMatched::class, Listeners\MergeFactoryIntoRequest::class);
         }
-
-        // @phpstan-ignore-next-line
-        $this->app['events']->listen(RouteMatched::class, Listeners\MergeFactoryIntoRequest::class);
     }
 }
