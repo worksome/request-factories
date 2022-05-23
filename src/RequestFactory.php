@@ -10,6 +10,7 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
+use Worksome\RequestFactories\Support\FactoryData;
 
 abstract class RequestFactory
 {
@@ -136,14 +137,14 @@ abstract class RequestFactory
         );
     }
 
-    public function getDataNeededForCreatingResult(): array
+    public function getFactoryData(): FactoryData
     {
-        return [
+        return new FactoryData(
             $this->definition(),
             $this->files(),
             $this->attributes,
             $this->without,
             $this->afterCreatingHooks,
-        ];
+        );
     }
 }

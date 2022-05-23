@@ -18,18 +18,16 @@ final class CreateFactoryResult implements CreatesFactoryResult
 {
     public function __invoke(RequestFactory $factory): Result
     {
-        [$definition, $files, $attributes, $without, $afterCreatingHooks] = $factory->getDataNeededForCreatingResult();
-
-        $requestedData = collect(array_merge($definition, $files, $attributes));
+        $data = $factory->getFactoryData();
 
         /** @var Collection<mixed> $result */
         $result = (new Pipeline())
-            ->send($requestedData)
+            ->send(collect($data->getRequestedData()))
             ->through([
                 new ResolveNestedFactories($this),
                 new ResolveClosures(),
-                new RemoveWithout($without),
-                new InvokeAfterCreatingHooks($afterCreatingHooks),
+                new RemoveWithout($data->getWithout()),
+                new InvokeAfterCreatingHooks($data->getAfterCreatingHooks()),
             ])
             ->thenReturn();
 
