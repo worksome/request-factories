@@ -12,7 +12,6 @@ use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\Support\FactoryData;
-use Worksome\RequestFactories\Support\Result;
 
 abstract class RequestFactory
 {
@@ -108,6 +107,7 @@ abstract class RequestFactory
      */
     public function create(array $attributes = []): array
     {
+        // @phpstan-ignore-next-line
         return app(CreatesFactoryResult::class)($this->state($attributes))->all();
     }
 

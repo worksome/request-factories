@@ -2,6 +2,7 @@
 
 use Worksome\RequestFactories\FactoryManager;
 use Worksome\RequestFactories\Tests\Doubles\Factories\AddressFormRequestFactory;
+
 use function Pest\Laravel\post;
 
 it('can return a result directly from a factory without faking', function () {
