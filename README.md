@@ -180,6 +180,19 @@ it('can sign up a user with an international phone number', function () {
 });
 ```
 
+#### Using `create` on the factory
+
+If you don't want to use global fakes, you may call `create` on a factory and pass the result as
+data to a request:
+
+```php
+it('can sign up a user with an international phone number', function () {
+    $data = SignupRequest::factory()->create(['phone' => '+44 1234 567890']);
+    
+    put('/users', $data)->assertValid();
+});
+```
+
 #### Using `fakeRequest` in Pest PHP
 
 If you're using Pest, we provide a higher order method that you can chain onto your tests:
