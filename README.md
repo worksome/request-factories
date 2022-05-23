@@ -138,9 +138,22 @@ for our bio, along with a `files` method we can declare to segregate files from 
 
 So how do we use this factory in our tests? There are a few options, depending on your preferred style.
 
+#### Using `create` on the factory
+
+This method is most similar to Laravel's model factories. The `create` method returns an array,
+which you can then pass as data to `put`, `post` or any other request testing method.
+
+```php
+it('can sign up a user with an international phone number', function () {
+    $data = SignupRequest::factory()->create(['phone' => '+44 1234 567890']);
+    
+    put('/users', $data)->assertValid();
+});
+```
+
 #### Using `fake` on the request factory 
 
-The simplest way to get started is to use the `fake` method on a request factory. If you're using this approach, 
+Seen as you only normally make a single request per test, we support registering your factory globally with `fake`. If you're using this approach, 
 make sure that it's the *last method you call on the factory*, and that you call it before making a request
 to the relevant endpoint.
 
@@ -177,19 +190,6 @@ it('can sign up a user with an international phone number', function () {
     SignupRequest::fake();
     
     put('/users')->assertValid();
-});
-```
-
-#### Using `create` on the factory
-
-If you don't want to use global fakes, you may call `create` on a factory and pass the result as
-data to a request:
-
-```php
-it('can sign up a user with an international phone number', function () {
-    $data = SignupRequest::factory()->create(['phone' => '+44 1234 567890']);
-    
-    put('/users', $data)->assertValid();
 });
 ```
 
