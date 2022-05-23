@@ -154,7 +154,7 @@ it('can sign up a user with an international phone number', function () {
 
 #### Using `fake` on the request factory 
 
-Seen as you only normally make a single request per test, we support registering your factory globally with `fake`. If you're using this approach, 
+Seeing as you only normally make a single request per test, we support registering your factory globally with `fake`. If you're using this approach, 
 make sure that it's the *last method you call on the factory*, and that you call it before making a request
 to the relevant endpoint.
 
