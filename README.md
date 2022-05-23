@@ -36,9 +36,10 @@ We think this experience can be vastly improved. Take a look:
 
 ```php
 it('can sign up a user with an international phone number', function () {
-    SignupRequest::fake();  
+    SignupRequest::fake();
+
     put('/users', ['phone' => '+375 154 767 1088']);
-    
+
     expect(User::latest()->first()->phone)->toBe('+375 154 767 1088');
 });
 ```
