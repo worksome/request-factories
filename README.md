@@ -55,7 +55,7 @@ composer require --dev worksome/request-factories
 
 ## Usage
 
-First, let's create a new `RequestFactory`. A `RequestFactory` usually compliments a `FormRequest`
+First, let's create a new `RequestFactory`. A `RequestFactory` usually complements a `FormRequest`
 in your application. You can create a `RequestFactory` using the `make:request-factory` Artisan command:
 
 ```bash
