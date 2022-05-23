@@ -4,7 +4,6 @@ namespace Worksome\RequestFactories\Tests;
 
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Worksome\RequestFactories\RequestFactories;
 use Worksome\RequestFactories\RequestFactoriesServiceProvider;
 use Worksome\RequestFactories\Tests\Doubles\Controllers\ExampleController;
 
@@ -14,10 +13,8 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        RequestFactories::location(
-            __DIR__ . '/tmp/tests/RequestFactories',
-            'Worksome\\RequestFactories\\Tests\\Doubles\\Factories',
-        );
+        config()->set('request-factories.path', __DIR__ . '/tmp/tests/RequestFactories');
+        config()->set('request-factories.namespace', 'Worksome\\RequestFactories\\Tests\\Doubles\\Factories');
 
         /**
          * Let's register some fake routes for our tests to make use of when

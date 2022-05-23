@@ -363,22 +363,21 @@ it('allows a user to sign up and update their profile', function () {
 
 ### I don't want to use the default location for storing request factories
 
-Not a problem. Use the `RequestFactories::location` method in your Laravel `TestCase::setUp`
-to point us in the right direction:
+Not a problem. We provide a config file you may publish where you can edit the
+path and namespace of request factories. First, publish the config file:
+
+```bash
+php artisan vendor:publish --tag=request-factories
+```
+
+Now, in the newly created `config/request-factories.php`, alter the `path` and `namespace`
+keys to suit your requirements:
 
 ```php
-class TestCase extends BaseTestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        RequestFactories::location(
-            base_path('request_factories'),
-            'App\\RequestFactories',
-        );
-    }
-}
+return [
+    'path' => base_path('request_factories'),
+    'namespace' => 'App\\RequestFactories',
+];
 ```
 
 ## Testing

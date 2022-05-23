@@ -7,22 +7,30 @@ namespace Worksome\RequestFactories\Support;
 use Illuminate\Support\Str;
 use Worksome\RequestFactories\Contracts\Finder;
 
-final class CustomisableFinder implements Finder
+final class ConfigBasedFinder implements Finder
 {
-    public function __construct(private string $path, private string $namespace)
+    /**
+     * @param array<string, mixed> $config
+     */
+    public function __construct(private array $config)
     {
     }
 
     public function requestFactoriesLocation(string $name = ''): string
     {
-        $path = Str::of($name)->start('/')->prepend($this->path)->__toString();
+        $path = Str::of($name)->start('/')->prepend($this->getName())->__toString();
 
         return $this->withCorrectSeparator($path);
     }
 
     public function requestFactoriesNamespace(): string
     {
-        return $this->namespace;
+        return strval($this->config['namespace'] ?? 'Tests\\RequestFactories');
+    }
+
+    private function getName(): string
+    {
+        return strval($this->config['path'] ?? 'tests/RequestFactories');
     }
 
     private function withCorrectSeparator(string $path): string

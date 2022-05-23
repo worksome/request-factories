@@ -6,6 +6,8 @@ parameters:
     level: max
     paths:
         - src
+    excludePaths:
+        - src/RequestFactoriesServiceProvider.php
     tmpDir: build/phpstan
     checkModelProperties: true
     parallel:
