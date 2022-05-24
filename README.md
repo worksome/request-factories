@@ -11,7 +11,7 @@ Take a look at the following test:
 
 ```php
 it('can sign up a user with an international phone number', function () {
-    put('/users', [
+    $this->put('/users', [
         'phone' => '+375 154 767 1088',
         'email' => 'foo@bar.com', 🙄
         'name' => 'Luke Downing', 😛
@@ -38,7 +38,7 @@ We think this experience can be vastly improved. Take a look:
 it('can sign up a user with an international phone number', function () {
     SignupRequest::fake();
 
-    put('/users', ['phone' => '+375 154 767 1088']);
+    $this->put('/users', ['phone' => '+375 154 767 1088']);
 
     expect(User::latest()->first()->phone)->toBe('+375 154 767 1088');
 });
@@ -148,7 +148,7 @@ which you can then pass as data to `put`, `post` or any other request testing me
 it('can sign up a user with an international phone number', function () {
     $data = SignupRequest::factory()->create(['phone' => '+44 1234 567890']);
     
-    put('/users', $data)->assertValid();
+    $this->put('/users', $data)->assertValid();
 });
 ```
 
@@ -162,7 +162,7 @@ to the relevant endpoint.
 it('can sign up a user with an international phone number', function () {
     SignupRequestFactory::new()->fake();
     
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 });
 ```
 
@@ -190,7 +190,7 @@ it('can sign up a user with an international phone number', function () {
     // ...or using the fake method
     SignupRequest::fake();
     
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 });
 ```
 
@@ -201,17 +201,17 @@ If you're using Pest, we provide a higher order method that you can chain onto y
 ```php
 // You can provide the form request FQCN...
 it('can sign up a user with an international phone number', function () {
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 })->fakeRequest(SignupRequest::class);
 
 // Or the request factory FQCN...
 it('can sign up a user with an international phone number', function () {
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 })->fakeRequest(SignupRequestFactory::class);
 
 // Or even a closure that returns a request factory...
 it('can sign up a user with an international phone number', function () {
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 })->fakeRequest(fn () => SignupRequest::factory());
 ```
 
@@ -219,7 +219,7 @@ You can even chain factory methods onto the end of the `fakeRequest` method:
 
 ```php
 it('can sign up a user with an international phone number', function () {
-    put('/users')->assertValid();
+    $this->put('/users')->assertValid();
 })
     ->fakeRequest(SignupRequest::class)
     ->state(['name' => 'Jane Bloggs']);
@@ -239,7 +239,7 @@ Let's take a look at an example to illustrate this order of importance:
 it('can sign up a user with an international phone number', function () {
     SignupRequest::factory()->state(['name' => 'Oliver Nybroe', 'email' => 'oliver@worksome.com'])->fake();
     
-    put('/users', ['email' => 'luke@worksome.com'])->assertValid();
+    $this->put('/users', ['email' => 'luke@worksome.com'])->assertValid();
 });
 ```
 
@@ -247,7 +247,7 @@ The default email defined in `SignupRequestFactory` is `foo@bar.com`. The defaul
 Because we override the `name` property using the `state` method before calling `fake`, the name used in
 the form request will actually be `Oliver Nybroe`, not `Luke Downing`. 
 
-However, because we pass `luke@worksome.com` as data to the `put` function, that will take priority over
+However, because we pass `luke@worksome.com` as data to the `put` method, that will take priority over
 *all other defined data*, both `foo@bar.com` and `oliver@worksome.com`.
 
 ### The power of factories
@@ -270,7 +270,7 @@ class SignupRequestFactory extends RequestFactory
 it('does not allow profile pictures larger than 2000 pixels', function () {
     SignupRequest::factory()->withOversizedProfilePicture()->fake();
     
-    put('/users')->assertInvalid(['profile_picture' => 'size']);
+    $this->put('/users')->assertInvalid(['profile_picture' => 'size']);
 });
 ```
 
@@ -281,7 +281,7 @@ from the request? Try the `without` method!
 it('requires an email address', function () {
     SignupRequest::factory()->without(['email'])->fake();
     
-    put('/users')->assertInvalid(['email' => 'required']);
+    $this->put('/users')->assertInvalid(['email' => 'required']);
 });
 ```
 
