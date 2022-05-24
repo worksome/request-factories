@@ -57,7 +57,7 @@ composer require --dev worksome/request-factories
 ## Usage
 
 First, let's create a new `RequestFactory`. A `RequestFactory` usually complements a `FormRequest`
-in your application. You can create a `RequestFactory` using the `make:request-factory` Artisan command:
+in your application ([request factories work with standard requests too!](#using-factories-without-form-requests)). You can create a `RequestFactory` using the `make:request-factory` Artisan command:
 
 ```bash
 php artisan make:request-factory "App\Http\Requests\SignupRequest"
