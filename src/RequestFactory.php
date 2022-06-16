@@ -10,6 +10,7 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\Support\FactoryData;
 
@@ -71,7 +72,7 @@ abstract class RequestFactory
      */
     public function state(array $attributes): static
     {
-        return $this->newInstance(attributes: $attributes);
+        return $this->newInstance(attributes: Arr::undot($attributes));
     }
 
     /**
