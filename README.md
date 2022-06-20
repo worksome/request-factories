@@ -276,6 +276,16 @@ it('does not allow profile pictures larger than 2000 pixels', function () {
 });
 ```
 
+You can also use dot-notation in the `state` method to alter deeply nested keys in your request data.
+
+```php
+it('requires a postcode with the first line of an address', function () {
+    SignupRequest::factory()->state(['address.line_one' => '1 Test Street'])->fake();
+    
+    $this->put('/users')->assertInvalid(['address.postcode' => 'required']);
+});
+```
+
 The `state` method is your friend for any data you want to add or change on your factory. What about if you'd like to omit a property
 from the request? Try the `without` method!
 
