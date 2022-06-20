@@ -8,11 +8,9 @@ use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 use Worksome\RequestFactories\Actions\CreateFactoryResult;
 use Worksome\RequestFactories\Actions\MergeFactoryIntoRequest;
-use Worksome\RequestFactories\Actions\UndotArrayKeys;
 use Worksome\RequestFactories\Commands\MakeCommand;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\Contracts\Actions\MergesFactoryIntoRequest;
-use Worksome\RequestFactories\Contracts\Actions\UndotsArrayKeys;
 use Worksome\RequestFactories\Contracts\Finder;
 use Worksome\RequestFactories\Support\ConfigBasedFinder;
 
@@ -22,7 +20,6 @@ final class RequestFactoriesServiceProvider extends ServiceProvider
     {
         $this->app->bind(CreatesFactoryResult::class, CreateFactoryResult::class);
         $this->app->bind(MergesFactoryIntoRequest::class, MergeFactoryIntoRequest::class);
-        $this->app->bind(UndotsArrayKeys::class, UndotArrayKeys::class);
         $this->app->singleton(Finder::class, fn () => new ConfigBasedFinder(config('request-factories')));
         $this->app->singleton(FactoryManager::class);
     }
