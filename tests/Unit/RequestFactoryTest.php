@@ -36,6 +36,19 @@ it('can alter attributes with the state method', function () {
         ->email->toBe('luke@downing.tech');
 });
 
+it('can alter nested properties using the state method and dot notation', function () {
+    $factory = ExampleFormRequestFactory::new()->state(['foo.bar' => 'baz']);
+    $data = creator($factory->state(['foo.bar' => 'boom']));
+
+    expect($data['foo']['bar'])->toBe('boom');
+});
+
+it('can escape properties that should have dots in it', function () {
+    $data = creator(ExampleFormRequestFactory::new()->state(['foo\.bar' => 'baz']));
+
+    expect($data['foo.bar'])->toBe('baz');
+});
+
 it('can resolve nested form request factories', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'secret_identity' => ExampleFormRequestFactory::new()->state([
