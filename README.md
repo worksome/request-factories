@@ -168,6 +168,8 @@ it('can sign up a user with an international phone number', function () {
 
 #### Using `fake` on the form request
 
+> ⚠️ Because `HasFactory` will be in your application code, you must require this package as a production dependency to use this feature (don't use the `--dev` flag when installing).
+
 If you've used Laravel model factories, you'll likely be used to calling `::factory()` on eloquent models to get a 
 new factory instance. Request factories have similar functionality available. First, add the `Worksome\RequestFactories\Concerns\HasFactory`
 trait to the relevant FormRequest:
