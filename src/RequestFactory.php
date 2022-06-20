@@ -10,8 +10,9 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
+use Worksome\RequestFactories\Actions\UndotArrayKeys;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
+use Worksome\RequestFactories\Contracts\Actions\UndotsArrayKeys;
 use Worksome\RequestFactories\Support\FactoryData;
 
 abstract class RequestFactory
@@ -72,7 +73,7 @@ abstract class RequestFactory
      */
     public function state(array $attributes): static
     {
-        return $this->newInstance(attributes: Arr::undot($attributes));
+        return $this->newInstance(attributes: $this->getUndotsArrayKeysAction()($attributes));
     }
 
     /**
@@ -138,6 +139,11 @@ abstract class RequestFactory
     protected function faker(): Generator
     {
         return $this->faker;
+    }
+
+    protected function getUndotsArrayKeysAction(): UndotsArrayKeys
+    {
+        return new UndotArrayKeys();
     }
 
     protected function newInstance(
