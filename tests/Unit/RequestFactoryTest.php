@@ -125,3 +125,10 @@ it('can unset keys using dot notation', function () {
 
     expect($data)->not->toHaveKeys(['name', 'address.line_one']);
 });
+
+it('can list', function () {
+    $factory = ExampleFormRequestFactory::new()->state(['foo.bar' => 'baz']);
+    $data = creator($factory->state(['foo' => ['bar', 'baz']]));
+
+    expect($data['foo'])->toBe(['bar', 'baz']);
+});
