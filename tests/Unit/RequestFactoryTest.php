@@ -127,8 +127,7 @@ it('can unset keys using dot notation', function () {
 });
 
 it('can list', function () {
-    $factory = ExampleFormRequestFactory::new()->state(['foo.bar' => 'baz']);
-    $data = creator($factory->state(['foo' => ['bar', 'baz']]));
+    $data = creator(ExampleFormRequestFactory::new()->state(['foo' => ['bar', 'baz']]));
 
     expect($data['foo'])->toBe(['bar', 'baz']);
 });
