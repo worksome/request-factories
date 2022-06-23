@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.0.1 - 2022-06-23
+
+- Fixes a bug when using lists and nested dot notation [#14](https://github.com/worksome/request-factories/pull/14)
+
 ## 2.0.0 - 2022-06-20
 
 > 💡 Be sure to check out our upgrade guide for 2.0.0 in [UPGRADE.md](UPGRADE.md)
