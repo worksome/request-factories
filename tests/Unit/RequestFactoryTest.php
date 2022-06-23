@@ -49,6 +49,16 @@ it('can escape properties that should have dots in it', function () {
     expect($data['foo.bar'])->toBe('baz');
 });
 
+it('can handle dot-notation with lists', function () {
+    $data = creator(ExampleFormRequestFactory::new()->state([
+        'foo.0.bar' => 'baz',
+        'luke\.0.downing' => 'developer',
+    ]));
+
+    expect($data['foo'][0]['bar'])->toBe('baz');
+    expect($data['luke.0']['downing'])->toBe('developer');
+});
+
 it('can resolve nested form request factories', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'secret_identity' => ExampleFormRequestFactory::new()->state([
