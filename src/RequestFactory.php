@@ -152,7 +152,7 @@ abstract class RequestFactory
         array $afterCreatingHooks = [],
     ): static {
         return new static(
-            array_merge($this->attributes, $attributes),
+            array_replace_recursive($this->attributes, $attributes),
             array_merge($this->without, $without),
             array_merge($this->afterCreatingHooks, $afterCreatingHooks),
         );

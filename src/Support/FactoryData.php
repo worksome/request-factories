@@ -32,7 +32,7 @@ final class FactoryData
      */
     public function getRequestedData(): array
     {
-        return array_merge($this->definition, $this->files, $this->attributes);
+        return array_replace_recursive($this->definition, $this->files, $this->attributes);
     }
 
     /**
