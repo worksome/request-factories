@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.0.2 - 2022-07-25
+
+- Fixes a bug where using dot notation in an array would cause sibling elements to disappear [#19](https://github.com/worksome/request-factories/pull/19)
+
 ## 2.0.1 - 2022-06-23
 
 - Fixes a bug when using lists and nested dot notation [#14](https://github.com/worksome/request-factories/pull/14)
