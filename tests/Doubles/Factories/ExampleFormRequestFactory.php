@@ -17,6 +17,10 @@ final class ExampleFormRequestFactory extends RequestFactory
             'email' => $this->faker()->unique()->safeEmail,
             'name' => $this->faker()->name,
             'address' => AddressFormRequestFactory::new()->withPostCode(),
+            'work' => [
+                'name' => $this->faker()->company,
+                'position' => $this->faker()->jobTitle,
+            ],
             'banner_image' => $this->file()->image('banner.png'),
         ];
     }

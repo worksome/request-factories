@@ -135,3 +135,12 @@ it('can unset keys using dot notation', function () {
 
     expect($data)->not->toHaveKeys(['name', 'address.line_one']);
 });
+
+it('can overwrite deeply nested array data', function () {
+    $data = creator(ExampleFormRequestFactory::new()->state([
+        'work.position' => 'Software Engineer',
+    ]));
+
+    expect($data)->toHaveKeys(['work.name', 'work.position'])
+        ->work->position->toBe('Software Engineer');
+});
