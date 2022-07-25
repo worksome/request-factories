@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Worksome\RequestFactories;
 
 use Closure;
-use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
@@ -28,7 +27,8 @@ abstract class RequestFactory
         protected array $without = [],
         protected array $afterCreatingHooks = [],
     ) {
-        $this->faker = Factory::create();
+        // @phpstan-ignore-next-line
+        $this->faker = app(Generator::class);
     }
 
     public static function new(array $attributes = []): static
