@@ -3,7 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Http\UploadedFile;
+use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
+use Faker\Factory;
+
+beforeEach(function () {
+    RequestFactory::setFakerResolver(fn () => Factory::create());
+});
 
 it('can generate an array of data', function () {
     $createdData = creator(ExampleFormRequestFactory::new());
@@ -143,4 +149,15 @@ it('can overwrite deeply nested array data', function () {
 
     expect($data)->toHaveKeys(['work.name', 'work.position'])
         ->work->position->toBe('Software Engineer');
+});
+
+it('can set a custom faker instance', function () {
+    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create('en_GB'));
+    $english = creator(ExampleFormRequestFactory::new()->withFakerPhoneNumber());
+
+    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create());
+    $american = creator(ExampleFormRequestFactory::new()->withFakerPhoneNumber());
+
+    expect($english['number'])->toStartWith('+44')
+        ->and($american['number'])->toStartWith('+1');
 });

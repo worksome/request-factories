@@ -62,4 +62,9 @@ final class ExampleFormRequestFactory extends RequestFactory
     {
         return $this->state(['profession' => $profession]);
     }
+
+    public function withFakerPhoneNumber()
+    {
+        return $this->state(['number' => $this->faker->e164PhoneNumber]);
+    }
 }
