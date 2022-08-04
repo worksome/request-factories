@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.1.0 - 2022-08-04
+
+- Added support for using custom Faker `Generator`s [#21](https://github.com/worksome/request-factories/pull/21)
+
 ## 2.0.2 - 2022-07-25
 
 - Fixes a bug where using dot notation in an array would cause sibling elements to disappear [#19](https://github.com/worksome/request-factories/pull/19)
