@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Faker\Generator;
-use Faker\Factory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 
 it('uses the laravel faker instance', function () {
-    $this->app->instance(Generator::class, Factory::create('en_GB'));
-    $data = ExampleFormRequestFactory::new()->withFakerPhoneNumber()->create();
+    $testGenerator = new class extends Generator {
+    };
+    $this->app->instance(Generator::class, $testGenerator);
 
-    expect($data['number'])->toStartWith('+44');
+    expect(ExampleFormRequestFactory::new()->faker())->toBe($testGenerator);
 });

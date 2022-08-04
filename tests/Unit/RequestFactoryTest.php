@@ -152,12 +152,12 @@ it('can overwrite deeply nested array data', function () {
 });
 
 it('can set a custom faker instance', function () {
-    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create('en_GB'));
-    $english = creator(ExampleFormRequestFactory::new()->withFakerPhoneNumber());
+    $testGenerator = new class extends \Faker\Generator {
+    };
 
-    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create());
-    $american = creator(ExampleFormRequestFactory::new()->withFakerPhoneNumber());
+    ExampleFormRequestFactory::setFakerResolver(fn () => $testGenerator);
+    expect(ExampleFormRequestFactory::new()->faker())->toBe($testGenerator);
 
-    expect($english['number'])->toStartWith('+44')
-        ->and($american['number'])->toStartWith('+1');
+    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create('en_US'));
+    expect(ExampleFormRequestFactory::new()->faker())->not->toBe($testGenerator);
 });

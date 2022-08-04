@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Worksome\RequestFactories\Tests\Doubles\Factories;
 
 use Closure;
+use Faker\Generator;
 use Worksome\RequestFactories\RequestFactory;
 
 final class ExampleFormRequestFactory extends RequestFactory
@@ -63,8 +64,8 @@ final class ExampleFormRequestFactory extends RequestFactory
         return $this->state(['profession' => $profession]);
     }
 
-    public function withFakerPhoneNumber()
+    public function faker(): Generator
     {
-        return $this->state(['number' => $this->faker->e164PhoneNumber]);
+        return $this->faker;
     }
 }
