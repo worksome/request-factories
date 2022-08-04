@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Worksome\RequestFactories;
 
+use Faker\Generator;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 use Worksome\RequestFactories\Actions\CreateFactoryResult;
@@ -30,6 +31,10 @@ final class RequestFactoriesServiceProvider extends ServiceProvider
         $this->publishes($this->filesToPublish(), 'request-factories');
 
         $this->mergeConfigFrom(__DIR__ . '/../config/request-factories.php', 'request-factories');
+
+        if ($this->app->has(Generator::class)) {
+            RequestFactory::setFakerResolver(fn () => $this->app->make(Generator::class));
+        }
 
         if ($this->app->runningUnitTests()) {
             $this->app['events']->listen(RouteMatched::class, Listeners\MergeFactoryIntoRequest::class);

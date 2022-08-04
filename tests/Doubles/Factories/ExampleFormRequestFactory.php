@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Worksome\RequestFactories\Tests\Doubles\Factories;
 
 use Closure;
+use Faker\Generator;
 use Worksome\RequestFactories\RequestFactory;
 
 final class ExampleFormRequestFactory extends RequestFactory
@@ -61,5 +62,10 @@ final class ExampleFormRequestFactory extends RequestFactory
     public function withProfession(string $profession)
     {
         return $this->state(['profession' => $profession]);
+    }
+
+    public function faker(): Generator
+    {
+        return $this->faker;
     }
 }

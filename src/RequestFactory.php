@@ -17,6 +17,11 @@ use Worksome\RequestFactories\Support\FactoryData;
 
 abstract class RequestFactory
 {
+    /**
+     * @var (Closure(): Generator)|null
+     */
+    private static Closure|null $fakerResolver = null;
+
     protected Generator $faker;
 
     /**
@@ -28,7 +33,15 @@ abstract class RequestFactory
         protected array $without = [],
         protected array $afterCreatingHooks = [],
     ) {
-        $this->faker = Factory::create();
+        $this->faker = $this->withFaker();
+    }
+
+    /**
+     * @param Closure(): Generator $resolver
+     */
+    public static function setFakerResolver(Closure $resolver): void
+    {
+        self::$fakerResolver = $resolver;
     }
 
     public static function new(array $attributes = []): static
@@ -156,6 +169,11 @@ abstract class RequestFactory
             array_merge($this->without, $without),
             array_merge($this->afterCreatingHooks, $afterCreatingHooks),
         );
+    }
+
+    protected function withFaker(): Generator
+    {
+        return self::$fakerResolver ? (self::$fakerResolver)() : Factory::create();
     }
 
     public function getFactoryData(): FactoryData
