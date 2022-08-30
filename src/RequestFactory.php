@@ -44,6 +44,10 @@ abstract class RequestFactory
         self::$fakerResolver = $resolver;
     }
 
+    /**
+     * @param array|static $attributes
+     * @return static
+     */
     public static function new(array|self $attributes = []): static
     {
         /**
@@ -51,7 +55,7 @@ abstract class RequestFactory
          * factories to work with depending on the complexity of the test. Here
          * we avoid having to conditionally check for an array of factory.
          */
-        if ($attributes instanceof self) {
+        if ($attributes instanceof static) {
             return $attributes;
         }
 
