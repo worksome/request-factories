@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.2.0 - 2022-08-30
+
+- Added support for passing an instance of a factory to the factory `::new` method [#22](https://github.com/worksome/request-factories/pull/22)
+
 ## 2.1.0 - 2022-08-04
 
 - Added support for using custom Faker `Generator`s [#21](https://github.com/worksome/request-factories/pull/21)
