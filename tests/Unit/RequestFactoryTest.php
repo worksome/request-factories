@@ -25,6 +25,12 @@ it('can generate an array of data', function () {
     ]);
 });
 
+it('can receive an instance of itself when instantiating', function () {
+    $data = creator(ExampleFormRequestFactory::new(ExampleFormRequestFactory::new(['foo' => 'bar'])));
+
+    expect($data['foo'])->toBe('bar');
+});
+
 it('can provide attributes when instantiating', function () {
     $data = creator(ExampleFormRequestFactory::new(['name' => 'Luke Downing']));
 
