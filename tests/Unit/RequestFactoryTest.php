@@ -8,7 +8,7 @@ use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 use Faker\Factory;
 
 beforeEach(function () {
-    RequestFactory::setFakerResolver(fn () => Factory::create());
+    RequestFactory::setFakerResolver(fn() => Factory::create());
 });
 
 it('can generate an array of data', function () {
@@ -26,9 +26,13 @@ it('can generate an array of data', function () {
 });
 
 it('can receive an instance of itself when instantiating', function () {
-    $data = creator(ExampleFormRequestFactory::new(ExampleFormRequestFactory::new(['foo' => 'bar'])));
+    $data = creator(ExampleFormRequestFactory::new(
+        ExampleFormRequestFactory::new(['foo' => 'bar'])->without(['email'])
+    ));
 
-    expect($data['foo'])->toBe('bar');
+    expect($data)
+        ->not->toHaveKey('email')
+        ->foo->toBe('bar');
 });
 
 it('can provide attributes when instantiating', function () {
@@ -87,7 +91,7 @@ it('can resolve nested form request factories', function () {
 it('can resolve property closures, and passes those closures all other parameters', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'name' => 'Luke Downing',
-        'description' => fn (array $attributes) => "Hello, my name is {$attributes['name']}"
+        'description' => fn(array $attributes) => "Hello, my name is {$attributes['name']}"
     ]));
 
     expect($data['description'])->toBe('Hello, my name is Luke Downing');
@@ -110,7 +114,7 @@ it('allows the user to configure the factory', function () {
      * on ExampleFormRequestFactory to override the functionality.
      */
     ExampleFormRequestFactory::configureUsing(function (ExampleFormRequestFactory $factory) {
-        return $factory->afterCreating(fn () => ['foo' => 'bar']);
+        return $factory->afterCreating(fn() => ['foo' => 'bar']);
     });
 
     expect(creator(ExampleFormRequestFactory::new())->all())->toBe(['foo' => 'bar']);
@@ -161,9 +165,9 @@ it('can set a custom faker instance', function () {
     $testGenerator = new class extends \Faker\Generator {
     };
 
-    ExampleFormRequestFactory::setFakerResolver(fn () => $testGenerator);
+    ExampleFormRequestFactory::setFakerResolver(fn() => $testGenerator);
     expect(ExampleFormRequestFactory::new()->faker())->toBe($testGenerator);
 
-    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create('en_US'));
+    ExampleFormRequestFactory::setFakerResolver(fn() => Factory::create('en_US'));
     expect(ExampleFormRequestFactory::new()->faker())->not->toBe($testGenerator);
 });
