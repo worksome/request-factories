@@ -53,7 +53,7 @@ abstract class RequestFactory
         /**
          * When working with datasets, you may have a mixture of plain arrays and
          * factories to work with depending on the complexity of the test. Here
-         * we avoid having to conditionally check for an array of factory.
+         * we avoid having to conditionally check for an array or factory.
          */
         if ($attributes instanceof static) {
             return $attributes;
