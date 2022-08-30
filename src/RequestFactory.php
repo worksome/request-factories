@@ -45,8 +45,7 @@ abstract class RequestFactory
     }
 
     /**
-     * @param array|static $attributes
-     * @return static
+     * @param array<string, mixed>|static $attributes
      */
     public static function new(array|self $attributes = []): static
     {
