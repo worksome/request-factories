@@ -44,8 +44,24 @@ abstract class RequestFactory
         self::$fakerResolver = $resolver;
     }
 
-    public static function new(array $attributes = []): static
+    /**
+     * @param array<string, mixed>|static $attributes
+     */
+    public static function new(array|self $attributes = []): static
     {
+        /**
+         * When working with datasets, you may have a mixture of plain arrays and
+         * factories to work with depending on the complexity of the test. Here
+         * we avoid having to manually check for an array or factory instance.
+         */
+        if ($attributes instanceof static) {
+            return new static(
+                $attributes->attributes,
+                $attributes->without,
+                $attributes->afterCreatingHooks
+            );
+        }
+
         return (new static())->state($attributes)->configure();
     }
 
