@@ -22,7 +22,7 @@ final class ExampleFormRequestFactory extends RequestFactory
                 'name' => $this->faker()->company,
                 'position' => $this->faker()->jobTitle,
             ],
-            'banner_image' => $this->file()->image('banner.png'),
+            'banner_image' => $this->image('banner.png'),
         ];
     }
 
