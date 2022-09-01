@@ -165,6 +165,11 @@ abstract class RequestFactory
         return UploadedFile::fake()->create($name);
     }
 
+    protected function image(string $name, int $width = 10, int $height = 10): File
+    {
+        return $this->file()->image($name, $width, $height);
+    }
+
     protected function faker(): Generator
     {
         return $this->faker;
