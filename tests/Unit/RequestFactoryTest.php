@@ -6,6 +6,8 @@ use Illuminate\Http\UploadedFile;
 use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 use Faker\Factory;
+use Worksome\RequestFactories\Tests\Doubles\Factories\ModelFactoryRequestFactory;
+use Worksome\RequestFactories\Tests\Doubles\Factories\NestedArrayRequestFactory;
 
 beforeEach(function () {
     RequestFactory::setFakerResolver(fn() => Factory::create());
@@ -170,4 +172,31 @@ it('can set a custom faker instance', function () {
 
     ExampleFormRequestFactory::setFakerResolver(fn() => Factory::create('en_US'));
     expect(ExampleFormRequestFactory::new()->faker())->not->toBe($testGenerator);
+});
+
+it('can recursively resolve closures', function () {
+    $data = creator(NestedArrayRequestFactory::new());
+
+    expect($data['foo']['bar'])->toBe('baz');
+    expect($data['foo']['baz']['boom']['bang'])->toBe('whizz');
+});
+
+it('can recursively resolve request factories', function () {
+    $data = creator(NestedArrayRequestFactory::new());
+
+    expect($data['foo']['factory'])
+        ->toBeArray()
+        ->toHaveKeys(['line_one', 'line_two', 'city', 'country']);
+});
+
+it('can resolve model factories', function () {
+    $data = creator(ModelFactoryRequestFactory::new());
+
+    /**
+     * Nested will have the lower ID because it is resolved by the factory
+     * first, due to recursive arrays being handled inside-out.
+     */
+    expect($data)
+        ->nested->model->toBe(1)
+        ->model->toBe(2);
 });

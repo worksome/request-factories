@@ -6,14 +6,15 @@ namespace Worksome\RequestFactories\Actions\CreateFactoryResultSteps;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class InvokeAfterCreatingHooks
+final class InvokeAfterCreatingHooks implements CreateFactoryResultStep
 {
     public function __construct(private array $hooks)
     {
     }
 
-    public function handle(Collection $data, Closure $next): mixed
+    public function handle(Collection $data, Closure $next): Collection
     {
         $data = collect($this->hooks)->reduce(
             // @phpstan-ignore-next-line

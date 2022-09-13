@@ -7,8 +7,9 @@ namespace Worksome\RequestFactories\Actions\CreateFactoryResultSteps;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class RemoveWithout
+final class RemoveWithout implements CreateFactoryResultStep
 {
     /**
      * @param array<int, string> $without
@@ -20,7 +21,7 @@ final class RemoveWithout
     /**
      * @param Collection<mixed> $data
      */
-    public function handle(Collection $data, Closure $next): mixed
+    public function handle(Collection $data, Closure $next): Collection
     {
         $data = $data->all();
         Arr::forget($data, $this->without);
