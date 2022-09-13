@@ -21,6 +21,11 @@ class UserFactory extends Factory
         ];
     }
 
+    public static function resetId(): void
+    {
+        self::$id = 1;
+    }
+
     /**
      * We override this method because we want to avoid having to do
      * any database setup for testing this package. The ID will

@@ -28,8 +28,8 @@ final class CreateFactoryResult implements CreatesFactoryResult
             ->through([
                 RecursiveStep::using(new ResolveNestedRequestFactories($this)),
                 RecursiveStep::using(new ResolveClosures()),
-                RecursiveStep::using(new ResolveModelFactories()),
                 new RemoveWithout($data->getWithout()),
+                RecursiveStep::using(new ResolveModelFactories()),
                 new InvokeAfterCreatingHooks($data->getAfterCreatingHooks()),
             ])
             ->thenReturn();

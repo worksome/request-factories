@@ -7,10 +7,12 @@ use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
 use Faker\Factory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ModelFactoryRequestFactory;
+use Worksome\RequestFactories\Tests\Doubles\Factories\Models\UserFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\NestedArrayRequestFactory;
 
 beforeEach(function () {
     RequestFactory::setFakerResolver(fn() => Factory::create());
+    UserFactory::resetId();
 });
 
 it('can generate an array of data', function () {
@@ -199,4 +201,15 @@ it('can resolve model factories', function () {
     expect($data)
         ->nested->model->toBe(1)
         ->model->toBe(2);
+});
+
+it('resolves model factories after handling attributes declared in ::without', function () {
+    $data = creator(ModelFactoryRequestFactory::new()->without(['nested.model']));
+
+    /**
+     * If you look at the previous test, you'll see that the nested model is handled
+     * before the base model. However, when removed from the request using `without`,
+     * it should never have been executed and thus our ID for `model` should be 1.
+     */
+    expect($data->model)->toBe(1);
 });
