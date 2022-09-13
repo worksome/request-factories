@@ -342,6 +342,26 @@ Now, when the `SignupRequestFactory` is created, it will resolve the `AddressReq
 and fill the `address` property with all fields contained in the `AddressRequestFactory` definition.
 Pretty cool hey?
 
+Request factories work hand in hand with model factories too. Imagine that you want to pass a `User` ID
+to your form request, but you need to create the user in the database in order to do so. It's as simple
+as instantiating the `UserFactory` in your request factory definition:
+
+```php
+class StoreMovieController extends RequestFactory
+{
+    public function definition(): array
+    {
+        return [
+            'name' => 'My Cool Movie'
+            'owner_id' => User::factory(),
+        ];
+    }
+}
+```
+
+Because the `UserFactory` isn't created until compile time, we avoid any unexpected models being persisted to your test database
+when you manually override the `owner_id` field.
+
 ### Using factories without form requests
 
 Not every controller in your app requires a backing form request. Thankfully, we also support faking a generic request:

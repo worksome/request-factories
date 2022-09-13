@@ -2,6 +2,11 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.4.0 - 2022-09-13
+
+- Added support for lazily resolving model factories [#24](https://github.com/worksome/request-factories/pull/24)
+- Closures, nested request factories and model factories now work in infinitely nested arrays [#24](https://github.com/worksome/request-factories/pull/24)
+
 ## 2.3.0 - 2022-09-01
 
 - Added a handy `RequestFactory::image` method as a shortcut for `$factory->file()->image('name.png')` [#23](https://github.com/worksome/request-factories/pull/23)
