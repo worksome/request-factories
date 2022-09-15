@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 2.5.0 - 2022-09-15
+
+- Added support for using `without` with a string for single properties [#26](https://github.com/worksome/request-factories/pull/26)
+
 ## 2.4.0 - 2022-09-13
 
 - Added support for lazily resolving model factories [#24](https://github.com/worksome/request-factories/pull/24)
