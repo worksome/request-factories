@@ -291,13 +291,15 @@ from the request? Try the `without` method!
 
 ```php
 it('requires an email address', function () {
-    SignupRequest::factory()->without(['email'])->fake();
+    SignupRequest::factory()->without('email')->fake();
     
     $this->put('/users')->assertInvalid(['email' => 'required']);
 });
 ```
 
 > 💡 You can use dot syntax in the `without` method to unset deeply nested keys
+
+You can also pass an array to `without` to unset multiple properties at once.
 
 Sometimes, you'll have a property that you want to be based on the value of other properties.
 In that case, you can provide a closure as the property value, which receives an array of all other parameters:
