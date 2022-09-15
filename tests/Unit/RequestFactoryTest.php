@@ -150,11 +150,14 @@ it('is iterable', function () {
     expect($data)->toBeIterable();
 });
 
-it('can unset keys using dot notation', function () {
-    $data = creator(ExampleFormRequestFactory::new()->without(['name', 'address.line_one']));
+it('can unset keys using dot notation', function ($without, array $expectedMissingKeys) {
+    $data = creator(ExampleFormRequestFactory::new()->without($without));
 
-    expect($data)->not->toHaveKeys(['name', 'address.line_one']);
-});
+    expect($data)->not->toHaveKeys($expectedMissingKeys);
+})->with([
+    'string' => ['address.line_one', ['address.line_one']],
+    'array' => [['name', 'address.line_one'], ['name', 'address.line_one']]
+]);
 
 it('can overwrite deeply nested array data', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([

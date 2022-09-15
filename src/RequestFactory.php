@@ -10,6 +10,7 @@ use Faker\Generator;
 use Illuminate\Http\Testing\File;
 use Illuminate\Http\Testing\FileFactory;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Worksome\RequestFactories\Actions\UndotArrayKeys;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\Contracts\Actions\UndotsArrayKeys;
@@ -110,11 +111,11 @@ abstract class RequestFactory
      * request. You can use dot syntax here to unset deeply nested
      * keys in request data.
      *
-     * @param array<int, string> $attributes
+     * @param array<int, string>|string $attributes
      */
-    public function without(array $attributes): static
+    public function without(array|string $attributes): static
     {
-        return $this->newInstance(without: $attributes);
+        return $this->newInstance(without: Arr::wrap($attributes));
     }
 
     /**
