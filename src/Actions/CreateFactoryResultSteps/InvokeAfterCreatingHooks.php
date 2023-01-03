@@ -17,7 +17,6 @@ final class InvokeAfterCreatingHooks implements CreateFactoryResultStep
     public function handle(Collection $data, Closure $next): Collection
     {
         $data = collect($this->hooks)->reduce(
-            // @phpstan-ignore-next-line
             fn ($latestAttributes, Closure $closure) => $closure($latestAttributes) ?? $latestAttributes,
             $data->all(),
         );

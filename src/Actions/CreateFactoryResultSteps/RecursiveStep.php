@@ -29,7 +29,7 @@ final class RecursiveStep implements CreateFactoryResultStep
 
     private function walk(mixed $data): mixed
     {
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             return $data;
         }
 

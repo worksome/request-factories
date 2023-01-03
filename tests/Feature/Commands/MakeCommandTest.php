@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Worksome\RequestFactories\Commands\MakeCommand;
 use Illuminate\Support\Facades\File;
+use Worksome\RequestFactories\Commands\MakeCommand;
 
 use function Pest\Laravel\artisan;
 

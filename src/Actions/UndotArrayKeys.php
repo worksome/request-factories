@@ -47,7 +47,10 @@ final class UndotArrayKeys implements UndotsArrayKeys
 
     private function replacePlaceholderWithDots(array $array): array
     {
-        $keys = array_map(fn ($key) => is_int($key) ? $key : str_replace($this->placeholder, '.', $key), array_keys($array));
+        $keys = array_map(
+            fn ($key) => is_int($key) ? $key : str_replace($this->placeholder, '.', $key),
+            array_keys($array)
+        );
 
         return array_combine($keys, $array);
     }

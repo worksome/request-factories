@@ -13,6 +13,7 @@ use Worksome\RequestFactories\RequestFactory;
  * in a chain, whilst deferring to the test elsewhere.
  *
  * @template TValue of \Worksome\RequestFactories\RequestFactory
+ *
  * @property TValue $requestFactory
  *
  * @mixin RequestFactory
@@ -26,6 +27,7 @@ final class HigherOrderRequestFactory
 
     /**
      * @param array<mixed> $arguments
+     *
      * @return HigherOrderRequestFactory<TValue>|TestCall|mixed
      */
     public function __call(string $name, array $arguments): mixed

@@ -1,0 +1,136 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @var for variable \\$result contains generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResult.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\InvokeAfterCreatingHooks\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/InvokeAfterCreatingHooks.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\InvokeAfterCreatingHooks\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/InvokeAfterCreatingHooks.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\InvokeAfterCreatingHooks\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/InvokeAfterCreatingHooks.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RecursiveStep\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/RecursiveStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RecursiveStep\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/RecursiveStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RecursiveStep\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/RecursiveStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RemoveWithout\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/RemoveWithout.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RemoveWithout\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/RemoveWithout.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\RemoveWithout\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/RemoveWithout.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveClosures\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveClosures.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveClosures\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/ResolveClosures.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveClosures\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveClosures.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveModelFactories\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveModelFactories.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveModelFactories\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/ResolveModelFactories.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveModelFactories\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveModelFactories.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveNestedRequestFactories\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveNestedRequestFactories.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveNestedRequestFactories\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Actions/CreateFactoryResultSteps/ResolveNestedRequestFactories.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Actions\\\\CreateFactoryResultSteps\\\\ResolveNestedRequestFactories\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Actions/CreateFactoryResultSteps/ResolveNestedRequestFactories.php
+
+		-
+			message: "#^Class Worksome\\\\RequestFactories\\\\Actions\\\\UndotArrayKeys implements generic interface Worksome\\\\RequestFactories\\\\Contracts\\\\Actions\\\\UndotsArrayKeys but does not specify its types\\: TValue$#"
+			count: 1
+			path: src/Actions/UndotArrayKeys.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Contracts\\\\Actions\\\\CreateFactoryResultStep\\:\\:handle\\(\\) has parameter \\$data with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Contracts/Actions/CreateFactoryResultStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Contracts\\\\Actions\\\\CreateFactoryResultStep\\:\\:handle\\(\\) has parameter \\$next with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 2
+			path: src/Contracts/Actions/CreateFactoryResultStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\Contracts\\\\Actions\\\\CreateFactoryResultStep\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Contracts/Actions/CreateFactoryResultStep.php
+
+		-
+			message: "#^Method Worksome\\\\RequestFactories\\\\RequestFactory\\:\\:getUndotsArrayKeysAction\\(\\) return type with generic interface Worksome\\\\RequestFactories\\\\Contracts\\\\Actions\\\\UndotsArrayKeys does not specify its types\\: TValue$#"
+			count: 1
+			path: src/RequestFactory.php
+
+		-
+			message: "#^Class Worksome\\\\RequestFactories\\\\Support\\\\Result implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Support/Result.php
+
+		-
+			message: "#^Class Worksome\\\\RequestFactories\\\\Support\\\\Result implements generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Support/Result.php
+
+		-
+			message: "#^Class Worksome\\\\RequestFactories\\\\Support\\\\Result implements generic interface IteratorAggregate but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Support/Result.php

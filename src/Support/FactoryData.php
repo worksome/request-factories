@@ -12,10 +12,10 @@ use Closure;
 final class FactoryData
 {
     /**
-     * @param array<mixed> $definition
-     * @param array<mixed> $files
-     * @param array<mixed> $attributes
-     * @param array<int, string> $without
+     * @param array<mixed>                      $definition
+     * @param array<mixed>                      $files
+     * @param array<mixed>                      $attributes
+     * @param array<int, string>                $without
      * @param array<Closure(array): array|void> $afterCreatingHooks
      */
     public function __construct(
