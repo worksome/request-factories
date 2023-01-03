@@ -26,7 +26,7 @@ abstract class RequestFactory
     protected Generator $faker;
 
     /**
-     * @param array<mixed> $attributes
+     * @param array<mixed>                      $attributes
      * @param array<Closure(array): array|void> $afterCreatingHooks
      */
     final public function __construct(
@@ -135,6 +135,7 @@ abstract class RequestFactory
      * passed as data to a request.
      *
      * @param array<mixed> $attributes
+     *
      * @return array<mixed>
      */
     public function create(array $attributes = []): array
@@ -155,6 +156,7 @@ abstract class RequestFactory
 
     /**
      * @param string|null $name
+     *
      * @return FileFactory|File
      */
     protected function file(string $name = null): FileFactory|File

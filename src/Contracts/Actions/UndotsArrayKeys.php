@@ -11,6 +11,7 @@ interface UndotsArrayKeys
 {
     /**
      * @param array<TValue> $array
+     *
      * @return array<TValue>
      */
     public function __invoke(array $array): array;

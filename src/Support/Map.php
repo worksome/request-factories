@@ -18,12 +18,18 @@ final class Map
 
     /**
      * @param class-string<FormRequest> $formRequest
+     *
      * @return class-string<RequestFactory>
+     *
      * @throws CouldNotLocateRequestFactoryException
      */
     public function formRequestToFactory(string $formRequest): string
     {
-        if (property_exists($formRequest, 'factory') && is_string($formRequest::$factory) && is_subclass_of($formRequest::$factory, RequestFactory::class)) {
+        if (
+            property_exists($formRequest, 'factory')
+            && is_string($formRequest::$factory)
+            && is_subclass_of($formRequest::$factory, RequestFactory::class)
+        ) {
             return $formRequest::$factory;
         }
 

@@ -13,7 +13,7 @@ trait FakesRequests
 {
     /**
      * @param class-string<FormRequest>|class-string<RequestFactory>|Closure(): RequestFactory $request
-     * @param array<mixed> $attributes
+     * @param array<mixed>                                                                     $attributes
      */
     public function fakeRequest(string|Closure $request, array $attributes = []): HigherOrderRequestFactory
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Faker\Factory;
 use Illuminate\Http\UploadedFile;
 use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ExampleFormRequestFactory;
-use Faker\Factory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\ModelFactoryRequestFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\Models\UserFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\NestedArrayRequestFactory;
@@ -169,7 +169,7 @@ it('can overwrite deeply nested array data', function () {
 });
 
 it('can set a custom faker instance', function () {
-    $testGenerator = new class extends \Faker\Generator {
+    $testGenerator = new class() extends \Faker\Generator {
     };
 
     ExampleFormRequestFactory::setFakerResolver(fn() => $testGenerator);
