@@ -2,6 +2,13 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 3.0.0 - 2023-01-27
+
+> 💡 Be sure to check out our upgrade guide for 3.0.0 in [UPGRADE.md](UPGRADE.md)
+
+- Removes the `HasFactory` trait in favor of macros [#33](https://github.com/worksome/request-factories/pull/33)
+- Bumps minimum PHP version to 8.2 [#32](https://github.com/worksome/request-factories/pull/32)
+
 ## 2.5.0 - 2022-09-15
 
 - Added support for using `without` with a string for single properties [#26](https://github.com/worksome/request-factories/pull/26)
