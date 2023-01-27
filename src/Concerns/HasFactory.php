@@ -6,31 +6,13 @@ namespace Worksome\RequestFactories\Concerns;
 
 use Closure;
 use Worksome\RequestFactories\RequestFactory;
-use Worksome\RequestFactories\Support\Map;
 
+/**
+ * @deprecated These methods are now made available via macros, allowing you to safely remove this trait from your FormRequests.
+ *
+ * @method static RequestFactory factory()
+ * @method static void           fake(array|Closure $attributes = [])
+ */
 trait HasFactory
 {
-    /**
-     * Fake this Form Request using the related factory.
-     *
-     * @param array<mixed>|Closure(RequestFactory): RequestFactory $attributes
-     */
-    public static function fake(array|Closure $attributes = []): void
-    {
-        $factory = static::factory();
-
-        $factory = $attributes instanceof Closure
-            ? $attributes($factory)
-            : $factory->state($attributes);
-
-        $factory->fake();
-    }
-
-    /**
-     * Retrieve the related factory instance for this Form Request.
-     */
-    public static function factory(): RequestFactory
-    {
-        return app(Map::class)->formRequestToFactory(static::class)::new();
-    }
 }

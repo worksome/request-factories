@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  php:
+    build: ./docker
+    volumes:
+      - .:/var/www/html
+  pest:
+    build: ./docker
+    entrypoint: ["php", "./vendor/bin/pest"]
+    volumes:
+      - .:/var/www/html
+  composer:
+    build: ./docker
+    entrypoint: ["composer"]
+    volumes:
+      - .:/var/www/html
