@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class RecursiveStep implements CreateFactoryResultStep
+final readonly class RecursiveStep implements CreateFactoryResultStep
 {
     private function __construct(private CreateFactoryResultStep $decoratedStep)
     {

@@ -8,7 +8,7 @@ use Illuminate\Routing\Events\RouteMatched;
 use Worksome\RequestFactories\Contracts\Actions\MergesFactoryIntoRequest;
 use Worksome\RequestFactories\FactoryManager;
 
-final class MergeFactoryIntoRequest
+final readonly class MergeFactoryIntoRequest
 {
     public function __construct(
         private FactoryManager $factoryManager,

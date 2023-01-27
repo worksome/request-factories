@@ -7,7 +7,7 @@ namespace Worksome\RequestFactories\Support;
 use Illuminate\Support\Str;
 use Worksome\RequestFactories\Contracts\Finder;
 
-final class ConfigBasedFinder implements Finder
+final readonly class ConfigBasedFinder implements Finder
 {
     /**
      * @param array<string, mixed> $config

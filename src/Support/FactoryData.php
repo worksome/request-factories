@@ -9,7 +9,7 @@ use Closure;
 /**
  * @internal
  */
-final class FactoryData
+final readonly class FactoryData
 {
     /**
      * @param array<mixed>                      $definition

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class ResolveModelFactories implements CreateFactoryResultStep
+final readonly class ResolveModelFactories implements CreateFactoryResultStep
 {
     public function handle(Collection $data, Closure $next): Collection
     {
