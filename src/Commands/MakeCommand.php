@@ -19,7 +19,7 @@ final class MakeCommand extends GeneratorCommand
 
     protected $type = 'Request Factory';
 
-    public function __construct(Filesystem $files, private Finder $finder)
+    public function __construct(Filesystem $files, private readonly Finder $finder)
     {
         parent::__construct($files);
     }

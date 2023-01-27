@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class RemoveWithout implements CreateFactoryResultStep
+final readonly class RemoveWithout implements CreateFactoryResultStep
 {
     /**
      * @param array<int, string> $without

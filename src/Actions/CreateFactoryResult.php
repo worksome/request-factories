@@ -16,7 +16,7 @@ use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Support\Result;
 
-final class CreateFactoryResult implements CreatesFactoryResult
+final readonly class CreateFactoryResult implements CreatesFactoryResult
 {
     public function __invoke(RequestFactory $factory): Result
     {

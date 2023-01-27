@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class ResolveClosures implements CreateFactoryResultStep
+final readonly class ResolveClosures implements CreateFactoryResultStep
 {
     public function handle(Collection $data, Closure $next): Collection
     {

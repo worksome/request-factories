@@ -168,21 +168,11 @@ it('can sign up a user with an international phone number', function () {
 
 #### Using `fake` on the form request
 
-> ⚠️ Because `HasFactory` will be in your application code, you must require this package as a production dependency to use this feature (don't use the `--dev` flag when installing).
-
 If you've used Laravel model factories, you'll likely be used to calling `::factory()` on eloquent models to get a 
-new factory instance. Request factories have similar functionality available. First, add the `Worksome\RequestFactories\Concerns\HasFactory`
-trait to the relevant FormRequest:
+new factory instance. Request factories have similar functionality available. You don't need to do anything to enable this;
+we automatically register the `::fake()` and `::factory()` method on all FormRequests via macros!
 
-```php
-class SignupRequest extends \Illuminate\Foundation\Http\FormRequest
-{
-    use \Worksome\RequestFactories\Concerns\HasFactory;
-}
-```
-
-This provides access to 2 new static methods on the form request: `::factory()` and `::fake()`. You can use these methods
-in your tests instead of instantiating the request factory directly:
+You can use these methods in your tests instead of instantiating the request factory directly:
 
 ```php
 it('can sign up a user with an international phone number', function () {
@@ -380,7 +370,7 @@ it('lets a guest sign up to the newsletter', function () {
 
 ### I'm getting a `CouldNotLocateRequestFactoryException`
 
-When using the `HasFactory` trait on a `FormRequest`, we attempt to auto-locate the relevant
+When using the `::fake()` or `::factory()` methods on a `FormRequest`, we attempt to auto-locate the relevant
 request factory for you. If your directory structure doesn't match for whatever reason, this exception
 will be thrown.
 
@@ -389,8 +379,6 @@ It can easily be resolved by adding a `public static $factory` property to your 
 ```php
 class SignupRequest extends FormRequest
 {
-    use HasFactory;
-    
     public static $factory = SignupRequestFactory::class; 
 }
 ```
@@ -434,6 +422,14 @@ We pride ourselves on a thorough test suite and strict static analysis. You can 
 
 ```bash
 composer test
+```
+
+To make it incredibly easy to contribute, we also provide a docker-compose file that will spin up a container
+with all the necessary dependencies installed. Assuming you have docker installed, just run:
+
+```bash
+docker-compose run --rm composer install # Only needed the first time
+docker-compose run --rm composer test # Run tests and static analysis 
 ```
 
 ## Changelog

@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Collection;
 use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 
-final class InvokeAfterCreatingHooks implements CreateFactoryResultStep
+final readonly class InvokeAfterCreatingHooks implements CreateFactoryResultStep
 {
     public function __construct(private array $hooks)
     {

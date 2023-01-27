@@ -10,7 +10,7 @@ use Worksome\RequestFactories\Contracts\Actions\CreateFactoryResultStep;
 use Worksome\RequestFactories\Contracts\Actions\CreatesFactoryResult;
 use Worksome\RequestFactories\RequestFactory;
 
-final class ResolveNestedRequestFactories implements CreateFactoryResultStep
+final readonly class ResolveNestedRequestFactories implements CreateFactoryResultStep
 {
     public function __construct(private CreatesFactoryResult $createFactoryResult)
     {

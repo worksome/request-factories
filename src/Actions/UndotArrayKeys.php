@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Worksome\RequestFactories\Contracts\Actions\UndotsArrayKeys;
 
-final class UndotArrayKeys implements UndotsArrayKeys
+final readonly class UndotArrayKeys implements UndotsArrayKeys
 {
     private string $placeholder;
 
