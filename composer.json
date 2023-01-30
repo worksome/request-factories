@@ -17,8 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/contracts": "^9.46|^10.0",
-        "laravel/framework": "10.*"
+        "illuminate/contracts": "^9.46|^10.0"
     },
     "require-dev": {
         "nunomaduro/collision": "^6.0",
