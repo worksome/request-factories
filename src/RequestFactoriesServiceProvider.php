@@ -30,8 +30,10 @@ final class RequestFactoriesServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->commands(MakeCommand::class);
-        $this->publishes($this->filesToPublish(), 'request-factories');
+        if ($this->app->runningInConsole()) {
+            $this->commands([MakeCommand::class]);
+            $this->publishes($this->filesToPublish(), 'request-factories');
+        }
 
         $this->mergeConfigFrom(__DIR__ . '/../config/request-factories.php', 'request-factories');
 
