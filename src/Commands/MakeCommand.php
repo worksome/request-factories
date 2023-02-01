@@ -12,8 +12,7 @@ use Worksome\RequestFactories\Contracts\Finder;
 
 final class MakeCommand extends GeneratorCommand
 {
-    public $signature = 'make:request-factory
-                         {name : The name of the request or request factory.}';
+    public $signature = 'make:request-factory {name : The name of the request or request factory.}';
 
     public $description = 'Generate a new FormRequest Factory.';
 
