@@ -2,6 +2,10 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 3.1.0 - 2023-02-01
+
+- Added support for Laravel 10 [35](https://github.com/worksome/request-factories/pull/35)
+
 ## 3.0.0 - 2023-01-27
 
 > 💡 Be sure to check out our upgrade guide for 3.0.0 in [UPGRADE.md](UPGRADE.md)
