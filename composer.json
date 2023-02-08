@@ -20,7 +20,6 @@
         "illuminate/contracts": "^9.46|^10.0"
     },
     "require-dev": {
-        "brianium/paratest": "^7.0",
         "nunomaduro/collision": "^6.0|^7.0",
         "nunomaduro/larastan": "^2.0",
         "orchestra/testbench": "^7.0|^8.0",
