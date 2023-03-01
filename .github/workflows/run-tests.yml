@@ -29,6 +29,8 @@ jobs:
         exclude:
           - laravel: 10.*
             php: 8.0
+          - laravel: 8.*
+            stability: prefer-lowest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
