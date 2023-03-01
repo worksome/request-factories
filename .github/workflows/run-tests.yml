@@ -23,12 +23,14 @@ jobs:
           - laravel: 8.*
             testbench: ^6.23
           - laravel: 9.*
-            testbench: ^7.0
+            testbench: ^7.22
           - laravel: 10.*
             testbench: ^8.0
         exclude:
           - laravel: 10.*
             php: 8.0
+          - laravel: 8.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
