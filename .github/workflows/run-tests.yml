@@ -2,9 +2,9 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches: [2.x]
   pull_request:
-    branches: [main]
+    branches: [2.x]
 
 jobs:
   test:
@@ -16,14 +16,21 @@ jobs:
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php: [8.0, 8.1]
-        laravel: [8.*, 9.*]
+        php: [8.0, 8.1, 8.2]
+        laravel: [8.*, 9.*, 10.*]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 8.*
-            testbench: ^6.23
+            testbench: ^6.25.1
           - laravel: 9.*
-            testbench: ^7.0
+            testbench: ^7.22
+          - laravel: 10.*
+            testbench: ^8.0
+        exclude:
+          - laravel: 10.*
+            php: 8.0
+          - laravel: 8.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -46,6 +53,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer remove --dev "worksome/coding-style" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
