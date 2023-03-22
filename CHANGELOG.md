@@ -2,6 +2,11 @@
 
 All notable changes to `request-factories` will be documented in this file.
 
+## 3.2.0 - 2023-03-22
+
+- Migrated to Pest v2 [43](https://github.com/worksome/request-factories/pull/43)
+- Required Laravel 10 as the minimum version [43](https://github.com/worksome/request-factories/pull/43)
+
 ## 3.1.0 - 2023-02-01
 
 - Added support for Laravel 10 [35](https://github.com/worksome/request-factories/pull/35)
