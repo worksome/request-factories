@@ -15,12 +15,12 @@ final class ExampleFormRequestFactory extends RequestFactory
     public function definition(): array
     {
         return [
-            'email' => $this->faker()->unique()->safeEmail,
-            'name' => $this->faker()->name,
+            'email' => $this->faker()->unique()->safeEmail(),
+            'name' => $this->faker()->name(),
             'address' => AddressFormRequestFactory::new()->withPostCode(),
             'work' => [
-                'name' => $this->faker()->company,
-                'position' => $this->faker()->jobTitle,
+                'name' => $this->faker()->company(),
+                'position' => $this->faker()->jobTitle(),
             ],
             'banner_image' => $this->image('banner.png'),
         ];
