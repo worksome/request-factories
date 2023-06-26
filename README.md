@@ -84,7 +84,7 @@ Let's take a look at our newly created `SignupRequestFactory`. You'll see someth
 ```php
 namespace Tests\RequestFactories;
 
-use Worksome\RequestFactories;
+use Worksome\RequestFactories\RequestFactory;
 
 class SignupRequestFactory extends RequestFactory
 {
@@ -107,7 +107,7 @@ our example `SignupRequestFactory`:
 ```php
 namespace Tests\RequestFactories;
 
-use Worksome\RequestFactories;
+use Worksome\RequestFactories\RequestFactory;
 
 class SignupRequestFactory extends RequestFactory
 {
