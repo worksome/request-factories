@@ -20,12 +20,12 @@
         "illuminate/contracts": "^10.0"
     },
     "require-dev": {
-        "larastan/larastan": "^2.7.0",
+        "larastan/larastan": "^2.8",
         "nunomaduro/collision": "^7.0",
         "orchestra/testbench": "^8.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "worksome/coding-style": "^2.0.0"
+        "worksome/coding-style": "^2.7"
     },
     "autoload": {
         "psr-4": {
