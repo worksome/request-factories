@@ -107,6 +107,14 @@ abstract class RequestFactory
     }
 
     /**
+     * Provide a key and value to override in the request data.
+     */
+    public function override(string $key, mixed $value): static
+    {
+        return $this->state([$key => $value]);
+    }
+
+    /**
      * Indicate that the given attributes should be omitted from the
      * request. You can use dot syntax here to unset deeply nested
      * keys in request data.
