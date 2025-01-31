@@ -20,7 +20,7 @@
         "illuminate/contracts": "^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
-        "larastan/larastan": "^2.8",
+        "larastan/larastan": "^2.8 || ^3.0",
         "nunomaduro/collision": "^7.0 || ^8.0",
         "orchestra/testbench": "^8.20 || ^9.0 || ^10.0",
         "pestphp/pest": "^2.30 || ^3.0",
