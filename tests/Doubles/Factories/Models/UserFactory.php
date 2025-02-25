@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 class UserFactory extends Factory
 {
     private static int $id = 1;
+
     protected $model = User::class;
 
     public function definition(): array
@@ -33,6 +34,6 @@ class UserFactory extends Factory
      */
     protected function store(Collection $results): void
     {
-        $results->each(fn(Model $model, int $key) => $model->{$model->getKeyName()} = self::$id++);
+        $results->each(fn (Model $model, int $key) => $model->{$model->getKeyName()} = self::$id++);
     }
 }

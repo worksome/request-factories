@@ -43,6 +43,7 @@ final readonly class HigherOrderRequestFactory
         }
 
         $result->fake();
+
         return new self($result);
     }
 

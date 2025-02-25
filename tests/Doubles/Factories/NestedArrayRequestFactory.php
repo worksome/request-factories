@@ -16,10 +16,10 @@ class NestedArrayRequestFactory extends RequestFactory
                 'baz' => [
                     'boom' => [
                         'bang' => fn () => 'whizz',
-                    ]
+                    ],
                 ],
                 'factory' => AddressFormRequestFactory::new(),
-            ]
+            ],
         ];
     }
 }

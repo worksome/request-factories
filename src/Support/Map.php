@@ -33,7 +33,7 @@ final readonly class Map
             return $formRequest::$factory;
         }
 
-        $requestPartialFQCN = Str::after($formRequest, "App\\Http\\Requests\\");
+        $requestPartialFQCN = Str::after($formRequest, 'App\\Http\\Requests\\');
         $factoryNamespace = $this->finder->requestFactoriesNamespace();
         $guessedFactoryFQCN = $factoryNamespace . '\\' . $requestPartialFQCN . 'Factory';
 

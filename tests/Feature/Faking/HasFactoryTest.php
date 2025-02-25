@@ -16,7 +16,7 @@ it('will not override input that has been set manually', function () {
     ExampleFormRequest::fake();
 
     post('/example', [
-        'email' => 'foo@bar.com'
+        'email' => 'foo@bar.com',
     ])
         ->assertJsonStructure(['email', 'name', 'address'])
         ->assertJson(['email' => 'foo@bar.com']);

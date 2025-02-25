@@ -13,7 +13,7 @@ it('can undot an array key', function ($givenArray, $resultingArray) {
 })->with([
     [
         ['foo.bar' => 'baz'],
-        ['foo' => ['bar' => 'baz']]
+        ['foo' => ['bar' => 'baz']],
     ],
     [
         ['foo.bar.baz' => 'boom'],
@@ -22,7 +22,7 @@ it('can undot an array key', function ($givenArray, $resultingArray) {
     [
         ['foo.bar' => 'baz', 'luke' => 'downing'],
         ['foo' => ['bar' => 'baz'], 'luke' => 'downing'],
-    ]
+    ],
 ]);
 
 it('can escape dots with the \\ character', function ($givenArray, $resultingArray) {
@@ -34,7 +34,7 @@ it('can escape dots with the \\ character', function ($givenArray, $resultingArr
 })->with([
     [
         ['foo\.bar' => 'baz'],
-        ['foo.bar' => 'baz']
+        ['foo.bar' => 'baz'],
     ],
     [
         ['foo\.bar\.baz' => 'boom'],
@@ -43,5 +43,5 @@ it('can escape dots with the \\ character', function ($givenArray, $resultingArr
     [
         ['foo.bar\.baz' => 'boom'],
         ['foo' => ['bar.baz' => 'boom']],
-    ]
+    ],
 ]);
