@@ -27,6 +27,7 @@ abstract class RequestFactory
 
     /**
      * @param array<mixed>                      $attributes
+     * @param array<int, string>                $without
      * @param array<Closure(array): array|void> $afterCreatingHooks
      */
     final public function __construct(

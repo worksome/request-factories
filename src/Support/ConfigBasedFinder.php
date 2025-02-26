@@ -25,12 +25,12 @@ final readonly class ConfigBasedFinder implements Finder
 
     public function requestFactoriesNamespace(): string
     {
-        return strval($this->config['namespace'] ?? 'Tests\\RequestFactories');
+        return strval($this->config['namespace'] ?? 'Tests\\RequestFactories'); // @phpstan-ignore argument.type
     }
 
     private function getName(): string
     {
-        return strval($this->config['path'] ?? 'tests/RequestFactories');
+        return strval($this->config['path'] ?? 'tests/RequestFactories'); // @phpstan-ignore argument.type
     }
 
     private function withCorrectSeparator(string $path): string

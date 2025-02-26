@@ -26,7 +26,6 @@ final readonly class RemoveWithout implements CreateFactoryResultStep
         $data = $data->all();
         Arr::forget($data, $this->without);
 
-        // @phpstan-ignore-next-line
         return $next(collect($data));
     }
 }

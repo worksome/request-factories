@@ -22,7 +22,7 @@ final readonly class CreateFactoryResult implements CreatesFactoryResult
     {
         $data = $factory->getFactoryData();
 
-        /** @var Collection<mixed> $result */
+        /** @var Collection<array-key, mixed> $result */
         $result = (new Pipeline())
             ->send(collect($data->getRequestedData()))
             ->through([
