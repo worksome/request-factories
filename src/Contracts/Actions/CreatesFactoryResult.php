@@ -9,5 +9,6 @@ use Worksome\RequestFactories\Support\Result;
 
 interface CreatesFactoryResult
 {
+    /** @return Result<array-key, mixed> */
     public function __invoke(RequestFactory $factory): Result;
 }

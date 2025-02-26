@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Worksome\RequestFactories\RequestFactory;
 use Worksome\RequestFactories\Support\HigherOrderRequestFactory;
 
+/** @phpstan-ignore trait.unused */
 trait FakesRequests
 {
     /**

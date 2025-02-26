@@ -13,8 +13,17 @@ use IteratorAggregate;
 use SplFileInfo;
 use Traversable;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @implements Arrayable<TKey, TValue>
+ * @implements ArrayAccess<TKey, TValue>
+ * @implements IteratorAggregate<TKey, TValue>
+ */
 final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
 {
+    /** @param  array<TKey, TValue>  $attributes */
     public function __construct(private array $attributes)
     {
     }
@@ -22,7 +31,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     /**
      * All attributes from the factory, including files.
      *
-     * @return array<mixed>
+     * @return array<TKey, TValue>
      */
     public function all(): array
     {
@@ -32,7 +41,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     /**
      * All attributes from the array except files.
      *
-     * @return array<mixed>
+     * @return array<TKey, TValue>
      */
     public function input(): array
     {
@@ -42,11 +51,11 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     /**
      * All files from the factory attributes.
      *
-     * @return array<SplFileInfo>
+     * @return array<TKey, SplFileInfo>
      */
     public function files(): array
     {
-        return array_filter($this->attributes, fn ($attribute) => $attribute instanceof SplFileInfo);
+        return array_filter($this->attributes, fn (mixed $attribute) => $attribute instanceof SplFileInfo);
     }
 
     public function hasFiles(): bool
@@ -55,7 +64,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @return array<mixed>
+     * @return array<TKey, TValue>
      */
     public function toArray(): array
     {
@@ -63,7 +72,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -71,7 +80,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -79,7 +88,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -87,7 +96,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param array-key $offset
+     * @param TKey $offset
      */
     public function offsetUnset(mixed $offset): void
     {
