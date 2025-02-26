@@ -159,7 +159,7 @@ abstract class RequestFactory
      *
      * @return FileFactory|File
      */
-    protected function file(string $name = null): FileFactory|File
+    protected function file(string|null $name = null): FileFactory|File
     {
         if ($name === null) {
             return UploadedFile::fake();

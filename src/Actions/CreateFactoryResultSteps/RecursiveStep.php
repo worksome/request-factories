@@ -22,7 +22,7 @@ final readonly class RecursiveStep implements CreateFactoryResultStep
     public function handle(Collection $data, Closure $next): Collection
     {
         return $this->decoratedStep->handle(
-            $data->map(fn(mixed $item) => $this->walk($item)),
+            $data->map(fn (mixed $item) => $this->walk($item)),
             $next,
         );
     }

@@ -11,7 +11,7 @@ use Worksome\RequestFactories\Tests\Doubles\Factories\Models\UserFactory;
 use Worksome\RequestFactories\Tests\Doubles\Factories\NestedArrayRequestFactory;
 
 beforeEach(function () {
-    RequestFactory::setFakerResolver(fn() => Factory::create());
+    RequestFactory::setFakerResolver(fn () => Factory::create());
     UserFactory::resetId();
 });
 
@@ -82,8 +82,8 @@ it('can handle dot-notation with lists', function () {
 it('can resolve nested form request factories', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'secret_identity' => ExampleFormRequestFactory::new()->state([
-            'super_secret_identity' => ExampleFormRequestFactory::new()
-        ])
+            'super_secret_identity' => ExampleFormRequestFactory::new(),
+        ]),
     ]));
 
     expect($data)
@@ -95,7 +95,7 @@ it('can resolve nested form request factories', function () {
 it('can resolve property closures, and passes those closures all other parameters', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'name' => 'Luke Downing',
-        'description' => fn(array $attributes) => "Hello, my name is {$attributes['name']}"
+        'description' => fn (array $attributes) => "Hello, my name is {$attributes['name']}",
     ]));
 
     expect($data['description'])->toBe('Hello, my name is Luke Downing');
@@ -118,7 +118,7 @@ it('allows the user to configure the factory', function () {
      * on ExampleFormRequestFactory to override the functionality.
      */
     ExampleFormRequestFactory::configureUsing(function (ExampleFormRequestFactory $factory) {
-        return $factory->afterCreating(fn() => ['foo' => 'bar']);
+        return $factory->afterCreating(fn () => ['foo' => 'bar']);
     });
 
     expect(creator(ExampleFormRequestFactory::new())->all())->toBe(['foo' => 'bar']);
@@ -156,7 +156,7 @@ it('can unset keys using dot notation', function ($without, array $expectedMissi
     expect($data)->not->toHaveKeys($expectedMissingKeys);
 })->with([
     'string' => ['address.line_one', ['address.line_one']],
-    'array' => [['name', 'address.line_one'], ['name', 'address.line_one']]
+    'array' => [['name', 'address.line_one'], ['name', 'address.line_one']],
 ]);
 
 it('can overwrite deeply nested array data', function () {
@@ -172,10 +172,10 @@ it('can set a custom faker instance', function () {
     $testGenerator = new class() extends \Faker\Generator {
     };
 
-    ExampleFormRequestFactory::setFakerResolver(fn() => $testGenerator);
+    ExampleFormRequestFactory::setFakerResolver(fn () => $testGenerator);
     expect(ExampleFormRequestFactory::new()->faker())->toBe($testGenerator);
 
-    ExampleFormRequestFactory::setFakerResolver(fn() => Factory::create('en_US'));
+    ExampleFormRequestFactory::setFakerResolver(fn () => Factory::create('en_US'));
     expect(ExampleFormRequestFactory::new()->faker())->not->toBe($testGenerator);
 });
 

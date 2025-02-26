@@ -19,12 +19,12 @@ it('can provide an array of attributes to fakeRequest', function () {
 
 it('can pass a RequestFactory to the Pest fakeRequest helper via a Closure', function () {
     post('/example')->assertJson(['foo' => 'bar']);
-})->fakeRequest(fn() => ExampleFormRequest::factory()->state(['foo' => 'bar']));
+})->fakeRequest(fn () => ExampleFormRequest::factory()->state(['foo' => 'bar']));
 
 it('can chain RequestFactory methods onto the fakeRequest helper', function () {
     post('/example')->assertJson([
         'foo' => 'bar',
-        'profession' => 'Clown'
+        'profession' => 'Clown',
     ]);
 })
     ->skip(false) // Note that we can call Pest methods before...
