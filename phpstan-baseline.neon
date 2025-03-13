@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: config/request-factories.php
+
+		-
 			message: '#^Method Worksome\\RequestFactories\\Actions\\CreateFactoryResultSteps\\InvokeAfterCreatingHooks\:\:handle\(\) has parameter \$data with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
 			count: 1
@@ -15,12 +21,6 @@ parameters:
 		-
 			message: '#^Method Worksome\\RequestFactories\\Actions\\CreateFactoryResultSteps\\InvokeAfterCreatingHooks\:\:handle\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/Actions/CreateFactoryResultSteps/InvokeAfterCreatingHooks.php
-
-		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:reduce\(\) expects callable\(mixed, mixed, int\|string\)\: mixed, Closure\(mixed, Closure\)\: mixed given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/Actions/CreateFactoryResultSteps/InvokeAfterCreatingHooks.php
 
@@ -139,19 +139,37 @@ parameters:
 			path: src/Contracts/Actions/CreateFactoryResultStep.php
 
 		-
+			message: '#^Call to an undefined static method Worksome\\RequestFactories\\RequestFactoriesServiceProvider\:\:factory\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/RequestFactoriesServiceProvider.php
+
+		-
+			message: '#^Cannot access offset ''events'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/RequestFactoriesServiceProvider.php
+
+		-
+			message: '#^Global helper function ''app'' should not be used\.$#'
+			identifier: larastanStrictRules.noGlobalLaravelFunction
+			count: 1
+			path: src/RequestFactoriesServiceProvider.php
+
+		-
+			message: '#^Global helper function ''config_path'' should not be used\.$#'
+			identifier: larastanStrictRules.noGlobalLaravelFunction
+			count: 1
+			path: src/RequestFactoriesServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$macro of static method Illuminate\\Http\\Request\:\:macro\(\) expects bindable closure, static closure given\.$#'
+			identifier: argument.staticClosure
+			count: 2
+			path: src/RequestFactoriesServiceProvider.php
+
+		-
 			message: '#^Method Worksome\\RequestFactories\\RequestFactory\:\:getUndotsArrayKeysAction\(\) return type with generic interface Worksome\\RequestFactories\\Contracts\\Actions\\UndotsArrayKeys does not specify its types\: TValue$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/RequestFactory.php
-
-		-
-			message: '#^Parameter \#2 \$without of class Worksome\\RequestFactories\\RequestFactory constructor expects array\<int, string\>, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/RequestFactory.php
-
-		-
-			message: '#^Parameter \#3 \$afterCreatingHooks of class Worksome\\RequestFactories\\RequestFactory constructor expects array\<\(Closure\(array\)\: array\)\|void\>, array given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/RequestFactory.php
