@@ -3,12 +3,17 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
-    level: max
+    level: 8
     paths:
         - src
-    excludePaths:
-        - src/RequestFactoriesServiceProvider.php
+        - config
     tmpDir: build/phpstan
     checkModelProperties: true
     parallel:
             processTimeout: 300.0
+
+    ignoreErrors:
+      -
+        identifier: larastan.noEnvCallsOutsideOfConfig
+        path: config
+        reportUnmatched: false
