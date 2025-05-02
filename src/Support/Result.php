@@ -45,7 +45,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function input(): array
     {
-        return $this->filterAttributes($this->attributes, fn ($attribute) => ! $attribute instanceof SplFileInfo);
+        return array_filter($this->attributes, fn ($attribute) => ! $this->isFileOrFileArray($attribute));
     }
 
     /**
@@ -55,7 +55,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function files(): array
     {
-        return $this->filterAttributes($this->attributes, fn ($attribute) => $attribute instanceof SplFileInfo);
+        return array_filter($this->attributes, fn (mixed $attribute) => $this->isFileOrFileArray($attribute));
     }
 
     public function hasFiles(): bool
@@ -118,24 +118,18 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
     }
 
     /**
-     * Recursively filters attributes based on the given callback.
-     *
-     * @param array    $attributes
-     * @param callable $callback
-     *
-     * @return array
+     * Checks if the attribute is an instance of SplFileInfo or an array of SplFileInfo.
      */
-    private function filterAttributes(array $attributes, callable $callback): array
+    private function isFileOrFileArray(mixed $attribute): bool
     {
-        $filtered = [];
-        foreach ($attributes as $key => $value) {
-            if (is_array($value)) {
-                $filtered[$key] = $this->filterAttributes($value, $callback);
-            } elseif ($callback($value)) {
-                $filtered[$key] = $value;
-            }
+        if ($attribute instanceof SplFileInfo) {
+            return true;
         }
 
-        return array_filter($filtered);
+        if (is_array($attribute) && ! empty($attribute)) {
+            return array_reduce($attribute, fn ($carry, $item) => $carry && $item instanceof SplFileInfo, true);
+        }
+
+        return false;
     }
 }
