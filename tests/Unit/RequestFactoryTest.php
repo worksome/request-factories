@@ -136,12 +136,31 @@ it('can extract files from the request', function () {
     }
 });
 
+it('can extract the array of files from the request', function () {
+    $data = creator(ExampleFormRequestFactory::new()->state([
+        'images' => [
+            UploadedFile::fake()->image('luke.png', 120, 120),
+            UploadedFile::fake()->image('downing.png', 120, 120),
+        ],
+    ]));
+
+    expect($data->files())->toHaveKey('images');
+    expect($data['images'])->toBeArray();
+    expect($data->files()['images'])->toBeArray();
+    for ($i = 0; $i < 2; $i++) {
+        expect($data['images'][$i])->toBeInstanceOf(UploadedFile::class);
+        expect($data->files()['images'][$i])->toBeInstanceOf(UploadedFile::class);
+    }
+});
+
 it('can return input without files', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
         'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
+        'images' => [UploadedFile::fake()->image('downing.png', 120, 120), ],
     ]));
 
     expect($data->input())->not->toHaveKey('profile_picture');
+    expect($data->input())->not->toHaveKey('images');
 });
 
 it('is iterable', function () {
