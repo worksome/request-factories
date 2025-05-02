@@ -45,7 +45,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function input(): array
     {
-        return array_filter($this->attributes, fn ($attribute) => ! $attribute instanceof SplFileInfo);
+        return $this->filterAttributes($this->attributes, fn($attribute) => ! $attribute instanceof SplFileInfo);
     }
 
     /**
@@ -55,7 +55,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function files(): array
     {
-        return array_filter($this->attributes, fn (mixed $attribute) => $attribute instanceof SplFileInfo);
+        return $this->filterAttributes($this->attributes, fn($attribute) => $attribute instanceof SplFileInfo);
     }
 
     public function hasFiles(): bool
