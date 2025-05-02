@@ -155,12 +155,14 @@ it('can extract the array of files from the request', function () {
 
 it('can return input without files', function () {
     $data = creator(ExampleFormRequestFactory::new()->state([
+        'something_false' => false,
         'profile_picture' => UploadedFile::fake()->image('luke.png', 120, 120),
         'images' => [UploadedFile::fake()->image('downing.png', 120, 120), ],
     ]));
 
     expect($data->input())->not->toHaveKey('profile_picture');
     expect($data->input())->not->toHaveKey('images');
+    expect($data->input())->toHaveKey('something_false');
 });
 
 it('is iterable', function () {
