@@ -67,6 +67,7 @@ final class RequestFactoriesServiceProvider extends ServiceProvider
 
         FormRequest::macro(
             'factory',
+            // @phpstan-ignore argument.type
             static fn () => app(Map::class)->formRequestToFactory(static::class)::new()
         );
     }
