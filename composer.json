@@ -8,24 +8,17 @@
     ],
     "homepage": "https://github.com/worksome/request-factories",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "luke",
-            "email": "lukeraymonddowning@gmail.com",
-            "role": "Developer"
-        }
-    ],
     "require": {
-        "php": "^8.3",
-        "illuminate/contracts": "^11.0 || ^12.0"
+        "php": "^8.4",
+        "illuminate/contracts": "^12.0 || ^13.0"
     },
     "require-dev": {
-        "larastan/larastan": "^3.1",
-        "nunomaduro/collision": "^7.10 || ^8.1.1",
-        "orchestra/testbench": "^9.12 || ^10.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1",
-        "worksome/coding-style": "^3.2"
+        "larastan/larastan": "^3.9",
+        "nunomaduro/collision": "^8.1.1",
+        "orchestra/testbench": "^10.1 || ^11.0",
+        "pestphp/pest": "^4.4",
+        "pestphp/pest-plugin-laravel": "^4.1",
+        "worksome/coding-style": "^3.4"
     },
     "autoload": {
         "psr-4": {
