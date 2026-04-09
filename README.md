@@ -2,8 +2,8 @@
 
 Test requests in Laravel without all the boilerplate.
 
-[![Unit Tests](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/run-tests.yml)
-[![PHPStan](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/phpstan.yml)
+[![Unit Tests](https://github.com/worksome/request-factories/actions/workflows/tests.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/tests.yml)
+[![PHPStan](https://github.com/worksome/request-factories/actions/workflows/static.yml/badge.svg)](https://github.com/worksome/request-factories/actions/workflows/static.yml)
 
 > 💡 Psst. Although our examples use Pest PHP, this works just as well in PHPUnit.
 
