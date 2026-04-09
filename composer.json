@@ -9,7 +9,7 @@
     "homepage": "https://github.com/worksome/request-factories",
     "license": "MIT",
     "require": {
-        "php": "^8.4",
+        "php": "^8.3",
         "illuminate/contracts": "^12.0 || ^13.0"
     },
     "require-dev": {
@@ -18,7 +18,7 @@
         "orchestra/testbench": "^10.1 || ^11.0",
         "pestphp/pest": "^4.4",
         "pestphp/pest-plugin-laravel": "^4.1",
-        "worksome/coding-style": "^3.4"
+        "worksome/coding-style": "^3.2"
     },
     "autoload": {
         "psr-4": {
