@@ -434,7 +434,7 @@ docker-compose run --rm composer test # Run tests and static analysis
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [GitHub Releases](https://github.com/worksome/request-factories/releases) for more information on what has changed recently.
 
 ## Credits
 
