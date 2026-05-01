@@ -12,9 +12,12 @@ final readonly class ResolveClosures implements CreateFactoryResultStep
 {
     public function handle(Collection $data, Closure $next): Collection
     {
-        $data = $data->map(fn (mixed $item) => $item instanceof Closure
-            ? $item($data->all())
-            : $item);
+        $data = $data->reduce(
+            fn(Collection $carry, mixed $item, mixed $key) => $carry->put($key, $item instanceof Closure
+                ? $item($carry->all())
+                : $item),
+            $data
+        );
 
         return $next($data);
     }
