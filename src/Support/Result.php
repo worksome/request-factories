@@ -45,7 +45,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function input(): array
     {
-        return array_filter($this->attributes, fn ($attribute) => ! $attribute instanceof SplFileInfo);
+        return array_filter($this->attributes, fn ($attribute) => ! $this->isFileOrFileArray($attribute));
     }
 
     /**
@@ -55,7 +55,7 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
      */
     public function files(): array
     {
-        return array_filter($this->attributes, fn (mixed $attribute) => $attribute instanceof SplFileInfo);
+        return array_filter($this->attributes, fn (mixed $attribute) => $this->isFileOrFileArray($attribute));
     }
 
     public function hasFiles(): bool
@@ -115,5 +115,21 @@ final readonly class Result implements Arrayable, ArrayAccess, IteratorAggregate
         }
 
         return $this->all()[$name];
+    }
+
+    /**
+     * Checks if the attribute is an instance of SplFileInfo or an array of SplFileInfo.
+     */
+    private function isFileOrFileArray(mixed $attribute): bool
+    {
+        if ($attribute instanceof SplFileInfo) {
+            return true;
+        }
+
+        if (is_array($attribute) && ! empty($attribute)) {
+            return array_reduce($attribute, fn ($carry, $item) => $carry && $item instanceof SplFileInfo, true);
+        }
+
+        return false;
     }
 }
