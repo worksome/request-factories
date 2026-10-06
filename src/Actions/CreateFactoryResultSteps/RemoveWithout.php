@@ -19,7 +19,7 @@ final readonly class RemoveWithout implements CreateFactoryResultStep
     }
 
     /**
-     * @param Collection<mixed> $data
+     * @param Collection<array-key, mixed> $data
      */
     public function handle(Collection $data, Closure $next): Collection
     {
