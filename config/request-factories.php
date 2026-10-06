@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /**
      * The default path for request factories is 'tests/RequestFactories'.

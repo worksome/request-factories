@@ -55,7 +55,6 @@ final readonly class MergeFactoryIntoRequest implements MergesFactoryIntoRequest
     {
         $mirror = new ReflectionClass($request);
         $convertedFiles = $mirror->getProperty('convertedFiles');
-        $convertedFiles->setAccessible(true);
         $convertedFiles->setValue($request, null);
     }
 }

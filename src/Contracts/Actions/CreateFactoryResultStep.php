@@ -10,10 +10,10 @@ use Illuminate\Support\Collection;
 interface CreateFactoryResultStep
 {
     /**
-     * @param Collection<mixed>                             $data
-     * @param Closure(Collection<mixed>): Collection<mixed> $next
+     * @param Collection<array-key, mixed>                                        $data
+     * @param Closure(Collection<array-key, mixed>): Collection<array-key, mixed> $next
      *
-     * @return Collection<mixed>
+     * @return Collection<array-key, mixed>
      */
     public function handle(Collection $data, Closure $next): Collection;
 }
