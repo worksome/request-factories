@@ -155,11 +155,6 @@ abstract class RequestFactory
         app(FactoryManager::class)->fake($this);
     }
 
-    /**
-     * @param string|null $name
-     *
-     * @return FileFactory|File
-     */
     protected function file(string|null $name = null): FileFactory|File
     {
         if ($name === null) {

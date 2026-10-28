@@ -13,12 +13,13 @@
         "illuminate/contracts": "^12.0 || ^13.0"
     },
     "require-dev": {
-        "larastan/larastan": "^3.9",
+        "canvural/larastan-strict-rules": "^3.0",
+        "larastan/larastan": "^3.10",
         "nunomaduro/collision": "^8.1.1",
         "orchestra/testbench": "^10.1 || ^11.0",
         "pestphp/pest": "^4.4",
         "pestphp/pest-plugin-laravel": "^4.1",
-        "worksome/coding-style": "^3.2"
+        "worksome/coding-style": "^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -52,7 +53,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "pestphp/pest-plugin": true,
-            "worksome/coding-style": true
+            "worksome/coding-style": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
