@@ -9,7 +9,7 @@
     "homepage": "https://github.com/worksome/request-factories",
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "illuminate/contracts": "^13.0"
     },
     "require-dev": {
